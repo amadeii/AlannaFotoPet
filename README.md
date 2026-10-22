@@ -63,6 +63,12 @@ A biografia recebida da cliente está em `shared.about.paragraphs`. A fotografia
 
 Os pacotes antigos não fazem parte do código público ou dos metadados. O material original permanece no PDF fornecido pela cliente. Na V1.4, a faixa autorizada de R$ 650 a R$ 1.260 aparece exclusivamente no formulário, sem orçamento automático. Ela não é incluída na mensagem preparada para o WhatsApp, em nenhum dos temas.
 
+## Favicon e compartilhamento
+
+O `index.html` inclui favicon PNG em 32 e 48 px, ícone Apple em 180 px e metadados Open Graph/Twitter para a prévia de links. Os ícones usam o desenho dos pets da marca; `public/og-alanna-rodrigues.png` preserva o logo completo sobre fundo claro em 1200 × 630 px. Os arquivos são copiados para `dist/` pelo Vite.
+
+A URL pública configurada é `https://alannafotopet.com.br/`. Ao mudar domínio ou campanha, atualizar também canonical, `og:url`, URLs das imagens, títulos e descrições estáticos no `index.html`: leitores de prévia não dependem do JavaScript do React. As mudanças precisam ser publicadas para aparecerem em links compartilhados; prévias antigas podem permanecer no cache do WhatsApp.
+
 ## Temas
 
 Altere somente `activeMode` em `src/config/site.ts` para `"evergreen"` ou `"christmas2026"`. Os componentes são compartilhados; textos, metadados e tokens mudam com o modo.
