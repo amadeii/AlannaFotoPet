@@ -1,0 +1,136 @@
+/* Motion V1.5: one rhythm for both themes; all content visible by default. */
+:root {
+  --motion-enter: 720ms;
+  --motion-photo: 1100ms;
+  --motion-letter: 700ms;
+  --motion-letter-stagger: 22ms;
+  --motion-section-letter-stagger: 18ms;
+  --motion-block-stagger: 60ms;
+  --motion-ui: 200ms;
+  --motion-dialog: 220ms;
+  --motion-gallery: 1000ms;
+  --motion-gallery-stagger: 90ms;
+  --motion-distance: 22px;
+  --motion-ease: cubic-bezier(0.16, 0.7, 0.25, 1);
+}
+/* Clip decorative overflow without creating a horizontal scroll container. */
+#root { overflow-x: clip; }
+.motion-hero-active .hero-brand,
+.motion-hero-active .hero-copy > :not(h1) {
+  animation: editorial-enter var(--motion-enter) var(--motion-ease) backwards;
+  animation-delay: var(--hero-delay, 0ms);
+}
+.hero-copy > .eyebrow { --hero-delay: 100ms; }
+.hero-subtitle { --hero-delay: 380ms; }
+.hero-intro { --hero-delay: 460ms; }
+.hero-actions { --hero-delay: 560ms; }
+.hero-note { --hero-delay: 640ms; }
+.motion-hero-active h1 .hero-letter {
+  animation: hero-letter-drop var(--motion-letter) var(--motion-ease)
+    calc(160ms + var(--letter-index) * var(--motion-letter-stagger)) backwards;
+}
+.motion-hero-active .hero-image {
+  animation: editorial-mask var(--motion-photo) var(--motion-ease) 180ms backwards;
+}
+.motion-hero-active .hero-image img {
+  animation: hero-photo-reveal var(--motion-photo) var(--motion-ease) 180ms backwards;
+}
+.motion-target.motion-seen:not(.motion-title, .photo-frame, .about-portrait) {
+  animation: editorial-enter var(--motion-enter) var(--motion-ease)
+    calc(var(--motion-order, 0) * var(--motion-block-stagger)) backwards;
+}
+.motion-title-word { display: inline-block; white-space: nowrap; }
+.motion-letter { display: inline-block; }
+.motion-title.motion-seen .motion-letter {
+  animation: hero-letter-drop var(--motion-letter) var(--motion-ease)
+    calc(var(--letter-index) * var(--motion-section-letter-stagger)) backwards;
+}
+.photo-frame.motion-seen,
+.about-portrait.motion-seen {
+  animation: editorial-mask var(--motion-photo) var(--motion-ease)
+    calc(var(--motion-order, 0) * var(--motion-block-stagger)) backwards;
+}
+.photo-frame.motion-seen > img {
+  animation: hero-photo-reveal var(--motion-photo) var(--motion-ease)
+    calc(var(--motion-order, 0) * var(--motion-block-stagger)) backwards;
+}
+.about-portrait.motion-seen {
+  animation-name: editorial-mask, hero-photo-reveal;
+}
+.motion-target.motion-settled,
+.motion-settled .motion-letter,
+.photo-frame.motion-settled > img { animation: none; }
+.about-image:has(.about-portrait.motion-seen:not(.motion-settled))::after {
+  animation: editorial-backdrop var(--motion-photo) var(--motion-ease) backwards;
+}
+.button, .text-link, .footer-icon,
+.faq-item button, .inquiry-close, .inquiry-cancel {
+  transition: color var(--motion-ui), background-color var(--motion-ui),
+    border-color var(--motion-ui), box-shadow var(--motion-ui), transform var(--motion-ui);
+}
+.button:is(:hover, :focus-visible):not(:disabled) {
+  transform: translateY(-2px);
+}
+.button > span, .text-link > span {
+  transition: transform var(--motion-ui) var(--motion-ease);
+}
+.button:is(:hover, :focus-visible):not(:disabled) > span { transform: translate(2px, -2px); }
+.text-link:is(:hover, :focus-visible) { border-color: var(--ink); }
+.text-link:is(:hover, :focus-visible) > span { transform: translateY(2px); }
+.button:active:not(:disabled) { transform: translateY(0); box-shadow: none; }
+.faq-item button:is(:hover, :focus-visible),
+.inquiry-close:is(:hover, :focus-visible),
+.inquiry-cancel:is(:hover, :focus-visible) { background: var(--surface); }
+.inquiry-field input, .inquiry-field select {
+  transition: border-color var(--motion-ui), box-shadow var(--motion-ui);
+}
+.inquiry-field :is(input, select):focus-visible { border-color: var(--secondary); }
+.inquiry-dialog[open] {
+  animation: editorial-dialog var(--motion-dialog) var(--motion-ease) backwards;
+}
+.inquiry-dialog[open]::backdrop {
+  animation: editorial-backdrop var(--motion-dialog) ease-out backwards;
+}
+@keyframes editorial-enter {
+  from { opacity: 0; transform: translateY(var(--motion-distance)); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes editorial-mask {
+  from { opacity: 0; clip-path: inset(0 0 8% 0); }
+  to { opacity: 1; clip-path: inset(0); }
+}
+@keyframes editorial-dialog {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes editorial-backdrop {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* V1.5.1: stronger curtain reveal only for the existing scenario mosaic. */
+.gallery-photo { --photo-entry-scale: 1.055; }
+.gallery-photo.motion-seen:not(.motion-settled) {
+  animation: gallery-curtain var(--motion-gallery) var(--motion-ease)
+    calc(var(--motion-order, 0) * var(--motion-gallery-stagger)) backwards;
+}
+.gallery-photo.motion-seen:not(.motion-settled) > img {
+  animation: hero-photo-reveal var(--motion-gallery) var(--motion-ease)
+    calc(var(--motion-order, 0) * var(--motion-gallery-stagger)) backwards;
+}
+.gallery-photo figcaption {
+  transition: transform 350ms var(--motion-ease);
+}
+.gallery-grid .photo-frame::after {
+  opacity: 0.8;
+  transition: opacity 350ms var(--motion-ease);
+}
+@media (hover: hover) and (pointer: fine) {
+  .gallery-photo:hover img { transform: scale(1.045); }
+  .gallery-photo:hover figcaption { transform: translateY(-3px); }
+  .gallery-grid .photo-frame:hover::after { opacity: 1; }
+}
+@keyframes gallery-curtain {
+  from { clip-path: inset(100% 0 0 0); }
+  to { clip-path: inset(0); }
+}

@@ -1,0 +1,20 @@
+:root[data-theme="christmas2026"] {
+  --page: #f9f7f2;
+  --surface: #f0ede5;
+  --ink: #293a30;
+  --accent: #344b3c;
+  --secondary: #743d43;
+}
+/* Base neutra provisória. Substituir pelos tokens oficiais ao receber a identidade institucional. */
+:root[data-theme="evergreen"] {
+  --page: #faf9f6;
+  --surface: #efeee9;
+  --paper: #fffefa;
+  --ink: #3f423e;
+  --muted: #72746e;
+  --accent: #51564e;
+  --secondary: #797768;
+  --gold: #95917d;
+  --border: #dcdcd4;
+  --placeholder: #e9e8e2;
+}
