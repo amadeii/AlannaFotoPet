@@ -14,6 +14,7 @@ import carouselSofi10 from "../assets/christmas/curated/carrossel-sofi-10.webp";
 import carouselSofi18 from "../assets/christmas/curated/carrossel-sofi-18.webp";
 import carouselSofi24 from "../assets/christmas/curated/carrossel-sofi-24.webp";
 import scenario from "../assets/christmas/scenario.webp";
+import scenarioDesktop from "../assets/christmas/scenario-desktop.webp";
 import details from "../assets/christmas/details.webp";
 import gifts from "../assets/christmas/gifts.webp";
 
@@ -21,7 +22,7 @@ const photo = (src: string, alt: string, position?: string): Photo => ({ src, al
 
 // Assign photographs to existing V1.8 slots; this file does not define layout.
 export const christmasPhotography = {
-  hero: photo(scenario, "Cenário Memórias Natalinas com árvore iluminada, poltrona e lareira", "50% 55%"),
+  hero: { ...photo(scenarioDesktop, "Cenário Memórias Natalinas com árvore iluminada, poltrona e lareira", "50% 55%"), mobileSrc: scenario },
   experience: photo(experience, "Tutora abraçando seu pet no cenário natalino", "50% 55%"),
   slots: {
     openingGallery: [

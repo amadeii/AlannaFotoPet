@@ -260,7 +260,7 @@ p { color: var(--muted); }
   .hero--scene .hero-stage { min-height: max(760px,100svh); height: auto; grid-template-columns: minmax(0, 460px) minmax(0,1fr); grid-template-areas: "brand space" "message space" "intro space" "action space"; grid-template-rows: 1fr auto auto 1fr; justify-items: center; padding: 56px clamp(40px,6vw,120px); }
   .hero--scene .hero-scene { height: 100%; width: 100%; }
   .hero--scene .hero-scene img { object-position: 50% 44%; }
-  .hero--scene .hero-scene::after { background: linear-gradient(90deg, #f9f7f2f5 0%, #f9f7f2e6 24%, #f9f7f2b3 36%, #f9f7f238 52%, transparent 68%); }
+  .hero--scene .hero-scene::after { background: linear-gradient(90deg, #f9f7f2f0 0px, #f9f7f2e0 300px, #f9f7f28c 440px, #f9f7f21f 560px, transparent 680px); }
   .hero--scene .hero-brand { align-self: end; margin-bottom: 36px; }
   .hero--scene .hero-brand img { width: 180px; }
   .hero--scene h1 { font-size: clamp(54px,4.3vw,64px); }

@@ -19,7 +19,10 @@ export function Hero({ content }: { content: SiteContent }) {
         <p className="hero-subtitle">{content.subtitle}</p>
       </div>
       {scene && content.hero ? <figure className="hero-image hero-portrait hero-scene">
-        <img src={content.hero.src} alt={content.hero.alt} loading="eager" fetchPriority="high" decoding="async" width="1200" height="1800" />
+        <picture>
+          {content.hero.mobileSrc && <source media="(max-width: 999px)" srcSet={content.hero.mobileSrc} />}
+          <img src={content.hero.src} alt={content.hero.alt} loading="eager" fetchPriority="high" decoding="async" width="1200" height="1800" />
+        </picture>
       </figure> : <Portrait eager className="hero-image hero-portrait" />}
       <div className="hero-actions"><WhatsAppTrigger intent="Agendar um ensaio">Agendar um ensaio</WhatsAppTrigger></div>
       <p className="hero-intro">{content.intro}</p>
