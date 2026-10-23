@@ -326,7 +326,7 @@ p { color: var(--muted); }
 .hero--family .hero-word { display: inline-block; margin-inline-end: .22em; }
 .hero--family .hero-word:last-child { margin-inline-end: 0; }
 .hero--family h1 { line-height: 1.08; }
-.editorial-rhythm > #fotografias .memory-track { animation-duration: 64s; }
+.editorial-rhythm > #fotografias .memory-track { animation-duration: 64s; animation-direction: reverse; }
 .emotional-highlight--editorial { display: block; min-height: 0; padding: 0; color: var(--secondary); background: var(--page); overflow: hidden; --memory-gap: 6px; }
 .emotional-highlight--editorial .highlight-copy { max-width: none; padding: 24px 20px; }
 .emotional-highlight--editorial h2 { font-size: clamp(28px,3vw,42px); line-height: 1.2; letter-spacing: -.02em; }
