@@ -3,6 +3,9 @@ export interface Photo {
   src: string;
   alt: string;
   caption: string;
+  mobileSrc?: string;
+  position?: string;
+  fit?: "cover" | "contain";
 }
 export interface SiteContent {
   whatsappMessage: string;
@@ -14,6 +17,16 @@ export interface SiteContent {
   subtitle: string;
   intro: string;
   hero: Photo | null;
+  photography?: {
+    openingGallery: Photo[];
+    closingGallery: Photo[];
+    openingBand: Photo[];
+    bridgeBand: Photo[];
+    scenario: Photo[];
+    contact: Photo;
+    faq: Photo;
+    closing: Photo;
+  };
   experience: { title: string; paragraphs: string[]; photo: Photo | null };
   gallery: { title: string; intro: string; photos: Photo[] };
   preparation: {

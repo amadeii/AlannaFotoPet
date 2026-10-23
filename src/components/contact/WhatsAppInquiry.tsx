@@ -12,6 +12,7 @@ import {
 } from "../../lib/inquiry";
 import type { InquiryValues } from "../../lib/inquiry";
 import { Arrow } from "../ui/Elements";
+import { Icon } from "../ui/Icon";
 
 type Request = { intent: string; trigger: HTMLButtonElement };
 const InquiryContext = createContext<((request: Request) => void) | null>(null);
@@ -236,142 +237,156 @@ function InquiryDialog({
       }}
     >
       <div className="inquiry-heading">
-        <p className="eyebrow">Um primeiro encontro</p>
         <button
           className="inquiry-close"
           type="button"
           aria-label="Fechar formulário"
           onClick={close}
         >
-          ×
+          <Icon name="close" />
         </button>
       </div>
-      <h2 id="inquiry-title">
-        Vamos planejar
-        <br />
-        <i>seu ensaio?</i>
-      </h2>
-      <p id="inquiry-description">
-        Conte um pouquinho sobre vocês. Essas informações vão preparar nossa
-        conversa no WhatsApp.
-      </p>
-      <p className="inquiry-range">{investmentRange}</p>
-      <form onSubmit={submit} noValidate>
-        <p className="inquiry-required">Todos os campos são obrigatórios.</p>
-        <div className="inquiry-fields">
-          <div className="inquiry-field inquiry-wide">
-            <label htmlFor="inquiry-name">Nome da pessoa</label>
-            <input
-              {...field("name")}
-              ref={firstInput}
-              type="text"
-              autoComplete="name"
-              maxLength={100}
-            />
-            <span id="inquiry-name-hint" className="inquiry-hint">
-              Como você gostaria de ser chamado(a)?
-            </span>
-            {error("name")}
-          </div>
-          <div className="inquiry-field inquiry-wide">
-            <label htmlFor="inquiry-breed">Raça do pet</label>
-            <input {...field("breed")} type="text" maxLength={180} />
-            <span id="inquiry-breed-hint" className="inquiry-hint">
-              Pode escrever SRD, sem raça definida ou listar várias raças.
-            </span>
-            {error("breed")}
-          </div>
-          <div className="inquiry-field">
-            <label htmlFor="inquiry-pets">Quantos pets?</label>
-            <select {...field("pets")}>
-              <option value="">Selecione</option>
-              {petCounts.map((count) => (
-                <option value={count} key={count}>
-                  {count}
-                </option>
-              ))}
-            </select>
-            <span id="inquiry-pets-hint" className="inquiry-hint">
-              Pelo menos um pet.
-            </span>
-            {error("pets")}
-          </div>
-          <div className="inquiry-field">
-            <label htmlFor="inquiry-people">Quantas pessoas?</label>
-            <select {...field("people")}>
-              <option value="">Selecione</option>
-              {peopleCounts.map((count) => (
-                <option value={count} key={count}>
-                  {count === "0" ? "0 — somente pets" : count}
-                </option>
-              ))}
-            </select>
-            <span id="inquiry-people-hint" className="inquiry-hint">
-              Zero para ensaio somente com pets.
-            </span>
-            {error("people")}
-          </div>
-          <div className="inquiry-field inquiry-wide">
-            <label htmlFor="inquiry-phone">Telefone com DDD</label>
-            <input
-              {...field("phone")}
-              type="tel"
-              inputMode="tel"
-              autoComplete="tel"
-            />
-            <span id="inquiry-phone-hint" className="inquiry-hint">
-              Celular ou telefone fixo brasileiro com DDD.
-            </span>
-            {error("phone")}
-          </div>
-          <div className="inquiry-field">
-            <label htmlFor="inquiry-city">Cidade</label>
-            <input
-              {...field("city")}
-              type="text"
-              autoComplete="address-level2"
-              maxLength={100}
-            />
-            <span id="inquiry-city-hint" className="inquiry-hint">
-              Em qual cidade você mora?
-            </span>
-            {error("city")}
-          </div>
-          <div className="inquiry-field">
-            <label htmlFor="inquiry-state">Estado</label>
-            <select {...field("state")} autoComplete="address-level1">
-              <option value="">Selecione</option>
-              {states.map((state) => (
-                <option value={state} key={state}>{state}</option>
-              ))}
-            </select>
-            <span id="inquiry-state-hint" className="inquiry-hint">
-              Selecione a UF.
-            </span>
-            {error("state")}
-          </div>
+      <div className="inquiry-shell">
+        <div className="inquiry-intro">
+          <p className="eyebrow">Um primeiro encontro</p>
+          <h2 id="inquiry-title">
+            Vamos planejar
+            <br />
+            <i>seu ensaio?</i>
+          </h2>
+          <p id="inquiry-description">
+            Conte um pouquinho sobre vocês. Essas informações vão preparar nossa
+            conversa no WhatsApp.
+          </p>
+          <p className="inquiry-range">{investmentRange.replaceAll("R$ ", "R$\u00a0")}</p>
         </div>
-        <p className="inquiry-validation" aria-live="polite">
-          {valid
-            ? "Tudo pronto para continuar."
-            : "Preencha todos os campos corretamente para continuar."}
-        </p>
-        <button
-          className="button inquiry-submit"
-          type="submit"
-          disabled={!valid}
-        >
-          Continuar para o WhatsApp
-          <Arrow />
-        </button>
-        <p className="inquiry-privacy">
-          Ao continuar, o WhatsApp abrirá com a mensagem pronta. Você revisa e
-          envia. Não armazenamos estes dados no site.
-        </p>
-        <button className="inquiry-cancel" type="button" onClick={close}>
-          Voltar ao site
-        </button>
-      </form>
+        <form className="inquiry-form" onSubmit={submit} noValidate>
+          <p className="inquiry-required">Todos os campos são obrigatórios.</p>
+          <fieldset className="inquiry-group">
+            <legend>Sobre vocês</legend>
+            <div className="inquiry-fields">
+              <div className="inquiry-field inquiry-wide">
+                <label htmlFor="inquiry-name">Nome da pessoa</label>
+                <input
+                  {...field("name")}
+                  ref={firstInput}
+                  type="text"
+                  autoComplete="name"
+                  maxLength={100}
+                />
+                <span id="inquiry-name-hint" className="inquiry-hint">
+                  Como você gostaria de ser chamado(a)?
+                </span>
+                {error("name")}
+              </div>
+              <div className="inquiry-field inquiry-wide">
+                <label htmlFor="inquiry-breed">Raça do pet</label>
+                <input {...field("breed")} type="text" maxLength={180} />
+                <span id="inquiry-breed-hint" className="inquiry-hint">
+                  Pode escrever SRD, sem raça definida ou listar várias raças.
+                </span>
+                {error("breed")}
+              </div>
+              <div className="inquiry-field">
+                <label htmlFor="inquiry-pets">Quantos pets?</label>
+                <select {...field("pets")}>
+                  <option value="">Selecione</option>
+                  {petCounts.map((count) => (
+                    <option value={count} key={count}>
+                      {count}
+                    </option>
+                  ))}
+                </select>
+                <span id="inquiry-pets-hint" className="inquiry-hint">
+                  Pelo menos um pet.
+                </span>
+                {error("pets")}
+              </div>
+              <div className="inquiry-field">
+                <label htmlFor="inquiry-people">Quantas pessoas?</label>
+                <select {...field("people")}>
+                  <option value="">Selecione</option>
+                  {peopleCounts.map((count) => (
+                    <option value={count} key={count}>
+                      {count === "0" ? "0 — somente pets" : count}
+                    </option>
+                  ))}
+                </select>
+                <span id="inquiry-people-hint" className="inquiry-hint">
+                  Zero para ensaio somente com pets.
+                </span>
+                {error("people")}
+              </div>
+            </div>
+          </fieldset>
+          <fieldset className="inquiry-group">
+            <legend>Como conversar</legend>
+            <div className="inquiry-fields">
+              <div className="inquiry-field inquiry-wide">
+                <label htmlFor="inquiry-phone">Telefone com DDD</label>
+                <input
+                  {...field("phone")}
+                  type="tel"
+                  inputMode="tel"
+                  autoComplete="tel"
+                />
+                <span id="inquiry-phone-hint" className="inquiry-hint">
+                  Celular ou telefone fixo brasileiro com DDD.
+                </span>
+                {error("phone")}
+              </div>
+              <div className="inquiry-field">
+                <label htmlFor="inquiry-city">Cidade</label>
+                <input
+                  {...field("city")}
+                  type="text"
+                  autoComplete="address-level2"
+                  maxLength={100}
+                />
+                <span id="inquiry-city-hint" className="inquiry-hint">
+                  Em qual cidade você mora?
+                </span>
+                {error("city")}
+              </div>
+              <div className="inquiry-field">
+                <label htmlFor="inquiry-state">Estado</label>
+                <select {...field("state")} autoComplete="address-level1">
+                  <option value="">Selecione</option>
+                  {states.map((state) => (
+                    <option value={state} key={state}>{state}</option>
+                  ))}
+                </select>
+                <span id="inquiry-state-hint" className="inquiry-hint">
+                  Selecione a UF.
+                </span>
+                {error("state")}
+              </div>
+            </div>
+          </fieldset>
+          <div className="inquiry-conclusion">
+            <p className="inquiry-validation" aria-live="polite">
+              {valid
+                ? "Tudo pronto para continuar."
+                : "Preencha todos os campos corretamente para continuar."}
+            </p>
+            <button
+              className="button inquiry-submit"
+              type="submit"
+              disabled={!valid}
+            >
+              Continuar para o WhatsApp
+              <Arrow />
+            </button>
+            <p className="inquiry-privacy">
+              Ao continuar, o WhatsApp abrirá com a mensagem pronta. Você revisa e
+              envia. Não armazenamos estes dados no site.
+            </p>
+            <button className="inquiry-cancel" type="button" onClick={close}>
+              Voltar ao site
+            </button>
+          </div>
+        </form>
+      </div>
     </dialog>
   );
 }

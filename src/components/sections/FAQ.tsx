@@ -1,6 +1,8 @@
 import { useId, useState } from "react";
-import type { SiteContent } from "../../content/types";
-import { Eyebrow } from "../ui/Elements";
+import type { Photo, SiteContent } from "../../content/types";
+import { PhotoFrame } from "../ui/Elements";
+import { Icon } from "../ui/Icon";
+import { Preparation } from "./Preparation";
 function FAQItem({ question, answer }: SiteContent["faq"][number]) {
   const [open, setOpen] = useState(false);
   const id = useId();
@@ -13,8 +15,8 @@ function FAQItem({ question, answer }: SiteContent["faq"][number]) {
           id={`${id}-question`}
           onClick={() => setOpen(!open)}
         >
+          <Icon name="plus" />
           {question}
-          <span aria-hidden="true">+</span>
         </button>
       </h3>
       <div
@@ -31,27 +33,23 @@ function FAQItem({ question, answer }: SiteContent["faq"][number]) {
     </div>
   );
 }
-export function FAQ({ items }: { items: SiteContent["faq"] }) {
+export function FAQ({ items, photo, companion, preparation }: { items: SiteContent["faq"]; photo?: Photo; companion?: Photo; preparation: SiteContent["preparation"] }) {
   if (!items.length) return null;
   return (
-    <section className="section faq-section container reveal" id="faq">
-      <div>
-        <Eyebrow>05 / Perguntas frequentes</Eyebrow>
-        <h2>
-          Antes do
-          <br />
-          <i>nosso encontro.</i>
-        </h2>
-        <p>
-          Os detalhes para você chegar
-          <br />
-          com tranquilidade.
-        </p>
-      </div>
+    <section className={`faq-section${companion ? " faq-section--paired" : ""}`} id="faq" aria-labelledby="faq-title">
+      {companion ? <div className="faq-photographs">
+        {photo && <PhotoFrame photo={photo} className="faq-photo" />}
+        <PhotoFrame photo={companion} className="faq-photo faq-photo--companion" />
+      </div> : photo && <PhotoFrame photo={photo} className="faq-photo" />}
       <div className="faq-list">
+        <h2 id="faq-title">Perguntas frequentes</h2>
         {items.map((item) => (
           <FAQItem key={item.question} {...item} />
         ))}
+        {preparation && <details className="preparation-disclosure disclosure">
+          <summary>Como se preparar para o ensaio<Icon name="plus" /></summary>
+          <Preparation content={preparation} />
+        </details>}
       </div>
     </section>
   );

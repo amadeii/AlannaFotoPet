@@ -13,8 +13,8 @@ export function useEditorialMotion(root: RefObject<HTMLDivElement | null>) {
     const galleryCards = new Set(page.querySelectorAll<HTMLElement>(".gallery-grid .photo-frame"));
     let galleryPlayed = false;
     const targets = Array.from(page.querySelectorAll<HTMLElement>([
-      ".experience-copy > :not(.motion-title)", ".motion-title",
-      ".section-heading > *", ".about-copy > :not(.motion-title)",
+      ".experience-heading > .eyebrow", ".experience-copy > *", ".motion-title",
+      ".section-heading > *", ".about-heading > .eyebrow", ".about-copy > *",
       ".preparation > div:first-child", ".preparation-tip", ".preparation-aside",
       ".faq-section > div:first-child", ".faq-item", ".contact-inner > *",
       ".testimonial-grid > figure", ".testimonials > h2",

@@ -1,37 +1,16 @@
 import type { SiteContent } from "./types";
 import scenario from "../assets/christmas/scenario.webp";
-import family from "../assets/christmas/family.webp";
 import candles from "../assets/christmas/candles.webp";
 import gifts from "../assets/christmas/gifts.webp";
 import details from "../assets/christmas/details.webp";
+import { christmasPhotography } from "./christmasPhotography";
 
 export const christmas2026: SiteContent = {
   whatsappMessage:
     "Olá, Alanna! Conheci seu site e gostaria de saber mais sobre os ensaios Memórias Natalinas 2026.",
   emotionalHighlight: {
     text: "Você merece viver isso!",
-    photos: [
-      {
-        src: family,
-        alt: "Família com dois pets no cenário Memórias Natalinas",
-        caption: "Juntos no Natal",
-      },
-      {
-        src: scenario,
-        alt: "Árvore iluminada e presentes no cenário natalino",
-        caption: "Um lugar para guardar lembranças",
-      },
-      {
-        src: details,
-        alt: "Lareira decorativa com velas e meias de Natal",
-        caption: "Detalhes que acolhem",
-      },
-      {
-        src: gifts,
-        alt: "Presentes com laços bordô na decoração do ensaio",
-        caption: "Pequenos encantos",
-      },
-    ],
+    photos: christmasPhotography.carousel,
   },
   ribbon: "Um Natal para guardar",
   edition: "Memórias Natalinas — edição 2026",
@@ -40,11 +19,8 @@ export const christmas2026: SiteContent = {
   subtitle: "Um Natal para guardar • 2026",
   intro:
     "Os pequenos momentos de hoje.\nAs lembranças mais queridas de amanhã.",
-  hero: {
-    src: scenario,
-    alt: "Cenário natalino real com árvore iluminada, presentes, poltrona e lareira decorativa",
-    caption: "Um cenário feito de afeto.",
-  },
+  hero: christmasPhotography.hero,
+  photography: christmasPhotography.slots,
   experience: {
     title: "O tempo passa.\nO afeto fica.",
     paragraphs: [
@@ -52,11 +28,7 @@ export const christmas2026: SiteContent = {
       "São justamente esses pequenos momentos que, com o passar dos anos, se transformam nas nossas memórias mais queridas.",
       "Em 2026, criamos um cenário inspirado nesse Natal: acolhedor, atemporal e cheio de afeto.",
     ],
-    photo: {
-      src: family,
-      alt: "Família com dois pets reunida no cenário Memórias Natalinas",
-      caption: "",
-    },
+    photo: christmasPhotography.experience,
   },
   gallery: {
     title: "Entre luzes, laços\ne boas lembranças.",

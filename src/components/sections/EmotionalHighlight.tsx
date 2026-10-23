@@ -1,6 +1,6 @@
 import type { Photo, SiteContent } from "../../content/types";
 
-function MemoryLane({
+export function MemoryLane({
   photos,
   side,
 }: {
@@ -21,6 +21,7 @@ function MemoryLane({
                 height="600"
                 loading="lazy"
                 decoding="async"
+                style={{ objectPosition: photo.position }}
                 key={`${photo.src}-${index}`}
               />
             ))}
@@ -37,19 +38,9 @@ export function EmotionalHighlight({
   content: SiteContent["emotionalHighlight"];
 }) {
   if (!content) return null;
-  const hasPhotos = content.photos.length > 0;
-  return (
-    <section
-      className={`emotional-highlight reveal${hasPhotos ? " emotional-highlight--photos" : ""}`}
-      aria-labelledby="highlight-title"
-    >
-      {hasPhotos && <MemoryLane photos={content.photos} side="left" />}
-      <div className="highlight-copy">
-        <h2 id="highlight-title">{content.text}</h2>
-      </div>
-      {hasPhotos && (
-        <MemoryLane photos={[...content.photos].reverse()} side="right" />
-      )}
-    </section>
-  );
+  return <section className="emotional-highlight emotional-highlight--integrated" aria-labelledby="highlight-title">
+    {content.photos.length > 0 && <MemoryLane photos={content.photos} side="left" />}
+    <div className="highlight-copy"><h2 id="highlight-title">{content.text}</h2></div>
+    {content.photos.length > 0 && <MemoryLane photos={[...content.photos].reverse()} side="right" />}
+  </section>;
 }

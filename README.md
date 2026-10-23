@@ -2,6 +2,18 @@
 
 Frontend em React, Vite e TypeScript. Campanha inicial: **Memórias Natalinas — Um Natal para guardar • 2026**.
 
+Versão atual: **V1.8.6 local**, com [12 substituições fotográficas sobre a V1.8.5, sem alterações estruturais](docs/V1.8.6-curadoria-fotografica.md). Comparações em `/tmp/v186-qa/comparacao.html`. Institucional preservado. Sem commit, push ou deploy.
+
+Base aprovada: [estrutura completa da V1.8 recuperada e nova curadoria](docs/recuperacao-V1.8-curadoria.md). A V1.8.3 preserva essa direção e altera somente os pontos autorizados. Orientações em [AGENTS.md](AGENTS.md).
+
+V1.8.1 rejeitada: [registro histórico da tentativa de simplificação](docs/V1.8.1-curadoria.md). A redução de seções/comprimento foi revertida; não usar essa tentativa como referência visual.
+
+V1.8 local: [mapeamento da referência real e equivalência das seções](docs/V1.8-reference-map.md) e [implementação, comparações e validações](docs/V1.8-delivery.md). Comparações mobile e desktop em `tmp/v18-qa/comparacao.html`, acessível pelo servidor local em `/tmp/v18-qa/comparacao.html`. Sem commit, push ou deploy desta versão.
+
+V1.7 preservada como histórico local: [redesign anterior e validação](docs/V1.7-redesign-estrutural.md). Direção visual rejeitada e substituída pela V1.8. Fontes anteriores preservadas no backup de trabalho.
+
+V1.6 local: [consolidação dos quatro áudios, ajustes de legibilidade, ícones, fotografias e validação](docs/V1.6-feedback-cliente.md). Aguarda aprovação visual; sem commit, push ou deploy desta versão.
+
 Retrato integrado: [máscara transparente sobre a foto original, enquadramento e validação](docs/portrait-refinement.md).
 
 V1.5.1: [contato compacto, footer com ícones, cards e comparativo de medidas](docs/V1.5.1-contato-cards.md). Os três acessos ao formulário continuam no hero, contato e ícone de WhatsApp do rodapé; Cidade/UF e as regras atuais foram preservadas.

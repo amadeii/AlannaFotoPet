@@ -2,11 +2,18 @@
 :root {
   --font-display: "Playfair Display", Georgia, serif;
   --font-body: "Montserrat", Arial, sans-serif;
+  --text-body: clamp(16px, 1.25vw, 18px);
+  --text-control: 16px;
+  --text-meta: 14px;
+  --text-label: 13px;
+  --text-leading: 1.7;
   --page: #f9f7f2;
   --surface: #f0ede5;
   --paper: #fffdf9;
+  --sand: #e2d8c8;
+  --soft-green: #e0e5db;
   --ink: #293a30;
-  --muted: #6d7066;
+  --muted: #565d52;
   --accent: #344b3c;
   --accent-ink: #fbf8f0;
   --secondary: #743d43;
@@ -21,18 +28,14 @@
   --swatch-burgundy: #74333d;
   --max-width: 1240px;
   --gutter: clamp(22px, 5vw, 80px);
-  --section-space: clamp(76px, 9vw, 138px);
+  --section-space: clamp(68px, 7vw, 112px);
   --ease: cubic-bezier(0.2, 0.65, 0.3, 1);
   --shadow: 0 14px 42px #283d3010;
 }
 
-/* Escala editorial para desktop; os tokens de tablet e mobile são preservados. */
+/* A largura editorial permanece; a escala de leitura atende todos os tamanhos. */
 @media (min-width: 1200px) {
   :root {
     --max-width: 1360px;
-    --desktop-body-size: clamp(15px, 0.9vw, 17px);
-    --desktop-text-size: clamp(14px, 0.85vw, 16px);
-    --desktop-control-size: clamp(13px, 0.8vw, 15px);
-    --desktop-nav-size: clamp(12px, 0.75vw, 14px);
   }
 }

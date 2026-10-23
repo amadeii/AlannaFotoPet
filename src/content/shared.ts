@@ -1,6 +1,5 @@
 import logo from "../assets/brand/alanna-logo.png";
 import portrait from "../assets/brand/alanna-portrait.webp";
-import portraitMask from "../assets/brand/alanna-portrait-mask.png";
 import type { Testimonial } from "./types";
 export const shared = {
   name: "Alanna Rodrigues",
@@ -16,7 +15,6 @@ export const shared = {
       "Meu propósito é registrar o jeitinho do seu pet e a conexão de vocês, para que, lá na frente, cada foto te faça lembrar de como é bom viver esse amor.",
     ],
     portrait: portrait as string | null,
-    portraitMask,
   },
   testimonials: {
     title: "O carinho das famílias que já passaram por aqui",

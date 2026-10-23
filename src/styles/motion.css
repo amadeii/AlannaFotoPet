@@ -25,15 +25,19 @@
 .hero-intro { --hero-delay: 460ms; }
 .hero-actions { --hero-delay: 560ms; }
 .hero-note { --hero-delay: 640ms; }
+.motion-hero-active .hero-photo-heading,
+.motion-hero-active .hero-photo-footer {
+  animation: editorial-enter var(--motion-enter) var(--motion-ease) 620ms backwards;
+}
 .motion-hero-active h1 .hero-letter {
   animation: hero-letter-drop var(--motion-letter) var(--motion-ease)
     calc(160ms + var(--letter-index) * var(--motion-letter-stagger)) backwards;
 }
 .motion-hero-active .hero-image {
-  animation: editorial-mask var(--motion-photo) var(--motion-ease) 180ms backwards;
+  animation: editorial-mask var(--motion-photo) var(--motion-ease) 620ms backwards;
 }
 .motion-hero-active .hero-image img {
-  animation: hero-photo-reveal var(--motion-photo) var(--motion-ease) 180ms backwards;
+  animation: hero-photo-reveal var(--motion-photo) var(--motion-ease) 620ms backwards;
 }
 .motion-target.motion-seen:not(.motion-title, .photo-frame, .about-portrait) {
   animation: editorial-enter var(--motion-enter) var(--motion-ease)
@@ -50,7 +54,7 @@
   animation: editorial-mask var(--motion-photo) var(--motion-ease)
     calc(var(--motion-order, 0) * var(--motion-block-stagger)) backwards;
 }
-.photo-frame.motion-seen > img {
+.photo-frame.motion-seen img {
   animation: hero-photo-reveal var(--motion-photo) var(--motion-ease)
     calc(var(--motion-order, 0) * var(--motion-block-stagger)) backwards;
 }
@@ -59,10 +63,7 @@
 }
 .motion-target.motion-settled,
 .motion-settled .motion-letter,
-.photo-frame.motion-settled > img { animation: none; }
-.about-image:has(.about-portrait.motion-seen:not(.motion-settled))::after {
-  animation: editorial-backdrop var(--motion-photo) var(--motion-ease) backwards;
-}
+.photo-frame.motion-settled img { animation: none; }
 .button, .text-link, .footer-icon,
 .faq-item button, .inquiry-close, .inquiry-cancel {
   transition: color var(--motion-ui), background-color var(--motion-ui),
@@ -71,12 +72,12 @@
 .button:is(:hover, :focus-visible):not(:disabled) {
   transform: translateY(-2px);
 }
-.button > span, .text-link > span {
+.button > .ui-icon, .text-link > .ui-icon {
   transition: transform var(--motion-ui) var(--motion-ease);
 }
-.button:is(:hover, :focus-visible):not(:disabled) > span { transform: translate(2px, -2px); }
+.button:is(:hover, :focus-visible):not(:disabled) > .ui-icon { transform: translate(2px, -2px); }
 .text-link:is(:hover, :focus-visible) { border-color: var(--ink); }
-.text-link:is(:hover, :focus-visible) > span { transform: translateY(2px); }
+.text-link:is(:hover, :focus-visible) > .ui-icon { transform: translateY(2px); }
 .button:active:not(:disabled) { transform: translateY(0); box-shadow: none; }
 .faq-item button:is(:hover, :focus-visible),
 .inquiry-close:is(:hover, :focus-visible),
@@ -84,7 +85,7 @@
 .inquiry-field input, .inquiry-field select {
   transition: border-color var(--motion-ui), box-shadow var(--motion-ui);
 }
-.inquiry-field :is(input, select):focus-visible { border-color: var(--secondary); }
+.inquiry-field :is(input, select):focus-visible { border-color: var(--accent); }
 .inquiry-dialog[open] {
   animation: editorial-dialog var(--motion-dialog) var(--motion-ease) backwards;
 }
@@ -108,29 +109,24 @@
   to { opacity: 1; }
 }
 
-/* V1.5.1: stronger curtain reveal only for the existing scenario mosaic. */
+/* V1.7: soft masks follow the two photographic sequences; captions stay visible. */
 .gallery-photo { --photo-entry-scale: 1.055; }
-.gallery-photo.motion-seen:not(.motion-settled) {
+.gallery-photo.motion-seen:not(.motion-settled) .photo-media {
   animation: gallery-curtain var(--motion-gallery) var(--motion-ease)
     calc(var(--motion-order, 0) * var(--motion-gallery-stagger)) backwards;
 }
-.gallery-photo.motion-seen:not(.motion-settled) > img {
+.gallery-photo.motion-seen:not(.motion-settled) img {
   animation: hero-photo-reveal var(--motion-gallery) var(--motion-ease)
     calc(var(--motion-order, 0) * var(--motion-gallery-stagger)) backwards;
 }
 .gallery-photo figcaption {
   transition: transform 350ms var(--motion-ease);
 }
-.gallery-grid .photo-frame::after {
-  opacity: 0.8;
-  transition: opacity 350ms var(--motion-ease);
-}
 @media (hover: hover) and (pointer: fine) {
   .gallery-photo:hover img { transform: scale(1.045); }
   .gallery-photo:hover figcaption { transform: translateY(-3px); }
-  .gallery-grid .photo-frame:hover::after { opacity: 1; }
 }
 @keyframes gallery-curtain {
-  from { clip-path: inset(100% 0 0 0); }
-  to { clip-path: inset(0); }
+  from { opacity: 0; clip-path: inset(12% 0 0 0); }
+  to { opacity: 1; clip-path: inset(0); }
 }

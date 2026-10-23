@@ -1,43 +1,19 @@
 import { shared } from "../../content/shared";
-import { Botanical, Eyebrow, MotionTitle, Placeholder } from "../ui/Elements";
+import { MotionTitle } from "../ui/Elements";
+import { Portrait } from "../ui/Portrait";
+import { WhatsAppTrigger } from "../contact/WhatsAppInquiry";
+
 export function About() {
-  return (
-    <section className="section about container reveal" id="sobre">
+  return <section className="about" id="sobre" aria-labelledby="about-title">
+    <div className="about-layout container">
       <div className="about-copy">
-        <Eyebrow>03 / Conheça a Alanna</Eyebrow>
-        <MotionTitle text={shared.about.title} />
-        <p className="about-name">
-          {shared.name}
-          <span>{shared.specialty}</span>
-        </p>
-        {shared.about.paragraphs.map((paragraph) => (
-          <p key={paragraph}>{paragraph}</p>
-        ))}
+        <p className="section-label">A fotógrafa</p>
+        <div id="about-title"><MotionTitle text="Conheça a Alanna" /></div>
+        <p className="about-name">{shared.name}</p>
+        <div className="about-biography">{shared.about.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
+        <WhatsAppTrigger intent="Conhecer a fotógrafa e agendar um ensaio">Agendar um ensaio</WhatsAppTrigger>
       </div>
-      <div className="about-image">
-        {shared.about.portrait ? (
-          <img
-            className="about-portrait"
-            loading="lazy"
-            decoding="async"
-            width="1200"
-            height="1804"
-            src={shared.about.portrait}
-            style={{
-              maskImage: `url(${shared.about.portraitMask})`,
-              WebkitMaskImage: `url(${shared.about.portraitMask})`,
-            }}
-            alt="Alanna Rodrigues com seu pet no colo e uma câmera nas mãos, diante de um fundo neutro"
-          />
-        ) : (
-          <Placeholder>
-            Retrato da Alanna
-            <br />
-            em breve por aqui
-          </Placeholder>
-        )}
-        <Botanical />
-      </div>
-    </section>
-  );
+      <Portrait className="about-portrait" />
+    </div>
+  </section>;
 }

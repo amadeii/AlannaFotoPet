@@ -1,44 +1,20 @@
-import type { SiteContent } from "../../content/types";
-import { Eyebrow, PhotoFrame, Placeholder } from "../ui/Elements";
-export function Gallery({
-  content,
-  seasonal,
-}: {
-  content: SiteContent["gallery"];
-  seasonal: boolean;
+import type { SiteContent, Photo } from "../../content/types";
+import { PhotoFrame, Placeholder } from "../ui/Elements";
+
+export function Gallery({ content, family, closing = false, selection, moving = false }: {
+  content: SiteContent["gallery"]; family: Photo | null; closing?: boolean; selection?: Photo[]; moving?: boolean;
 }) {
-  return (
-    <section className="section gallery-section reveal" id="cenario">
-      <div className="container">
-        <div className="section-heading">
-          <div>
-            <Eyebrow>02 / {seasonal ? "Nosso cenário" : "Portfólio"}</Eyebrow>
-            <h2>{content.title}</h2>
-          </div>
-          <p>{content.intro}</p>
-        </div>
-        <div className="gallery-grid">
-          {content.photos.length ? (
-            content.photos.map((photo, index) => (
-              <PhotoFrame
-                key={photo.src}
-                photo={photo}
-                className={`gallery-photo gallery-photo-${index + 1}`}
-              />
-            ))
-          ) : (
-            <Placeholder>Portfólio institucional a receber</Placeholder>
-          )}
-        </div>
-        <div className="gallery-footnote">
-          <span>Um olhar para os detalhes.</span>
-          <span>
-            {seasonal
-              ? "Jardim Samburá · Bauru, SP"
-              : "Alanna Rodrigues · Fotografia Pet"}
-          </span>
-        </div>
+  const photos = selection ?? (family ? [family, ...content.photos.slice(1)] : content.photos);
+  return <section className={`gallery-section${closing ? " gallery-section--closing" : ""}${moving ? " gallery-section--moving" : ""}`}
+    id={closing ? "mais-memorias" : "fotografias"} aria-label={closing ? "Mais memórias em fotografias" : "Fotografias dos ensaios"}>
+    {photos.length && moving ? <div className="memory-lane">
+      <div className="memory-track">
+        {[0, 1].map(copy => <div className={`memory-group${closing ? "" : " gallery-grid"}`} key={copy} aria-hidden={copy === 1 ? true : undefined}>
+          {photos.map((photo, index) => <PhotoFrame key={photo.src} photo={photo} className={`memory-photo ${closing ? "closing-photo" : "gallery-photo"} gallery-photo-${index + 1}`} />)}
+        </div>)}
       </div>
-    </section>
-  );
+    </div> : photos.length ? <div className={`${closing ? "" : "gallery-grid "}compact-grid`}>
+      {photos.map((photo, index) => <PhotoFrame key={photo.src} photo={photo} className={`${closing ? "closing-photo" : "gallery-photo"} gallery-photo-${index + 1}`} />)}
+    </div> : !closing && <Placeholder>Portfólio institucional a receber</Placeholder>}
+  </section>;
 }
