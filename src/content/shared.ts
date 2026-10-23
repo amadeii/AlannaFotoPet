@@ -17,9 +17,15 @@ export const shared = {
     portrait: portrait as string | null,
   },
   testimonials: {
-    title: "O carinho das famílias que já passaram por aqui",
+    title: "Histórias que ficam no coração",
+    intro: "Cada encontro é único. E algumas palavras mostram o quanto essas memórias significam.",
     // Adicionar somente avaliações reais recebidas e aprovadas pela cliente.
-    items: [] as Testimonial[],
+    items: [{
+      id: "ana-carolina-valverde",
+      name: "Ana Carolina Valverde",
+      pet: "Filó",
+      quote: "Eu não tenho nem o que falar, né? Ficaram lindíssimas, perfeitas!\n\nAmei cada detalhe, cada foto vou guardar com tanto carinho.\n\nDa Filó, ainda, fiquei impressionada! Ela é muito desconfiada com todo mundo e ficou super à vontade com você desde a primeira vez.\n\nAmei demais! Obrigada por esse trabalho maravilhoso.",
+    }] as Testimonial[],
   },
   developmentCredit: null as { label: string; url: string } | null,
   navigation: [

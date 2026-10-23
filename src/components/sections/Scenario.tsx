@@ -15,14 +15,14 @@ export function Scenario({ content, seasonal }: { content: SiteContent; seasonal
         <WhatsAppTrigger intent="Conhecer o cenário e agendar um ensaio">Agendar um ensaio</WhatsAppTrigger>
         {!seasonal && <Experience content={content.experience} />}
       </div>
-      <div className="scenario-photos">
+      {!seasonal && <div className="scenario-photos">
         {content.photography ? content.photography.scenario.map((photo, index) =>
           <PhotoFrame key={photo.src} photo={photo} className={`scenario-photo scenario-photo-${index + 1}`} />
         ) : <>
           {content.hero ? <PhotoFrame photo={content.hero} className="scenario-main" /> : <Placeholder>Fotografia institucional a receber</Placeholder>}
           {content.gallery.photos[3] && <PhotoFrame photo={content.gallery.photos[3]} className="scenario-detail" />}
         </>}
-      </div>
+      </div>}
     </div>
   </section>;
 }

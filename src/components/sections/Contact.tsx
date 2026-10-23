@@ -18,7 +18,7 @@ export function ContactInterest({ status }: { status: string }) {
 }
 export function Contact({ content, photo, seasonal, video }: { content: SiteContent["contact"]; photo: Photo | null; seasonal: boolean; video?: SiteContent["scenarioVideo"] }) {
   return (
-    <section className="contact-section reveal" id="contato">
+    <section className={`contact-section reveal${seasonal && video ? " contact-section--video" : ""}`} id="contato">
       <div className="contact-layout container">
       {seasonal && video ? <ScenarioVideo content={video} /> : photo && <PhotoFrame photo={photo} className="contact-photo" />}
       <div className="contact-inner">

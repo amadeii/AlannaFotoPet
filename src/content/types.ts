@@ -43,7 +43,8 @@ export interface SiteContent {
 }
 
 export interface Testimonial {
+  id: string;
   name: string;
   quote: string;
-  context?: string;
+  pet?: string;
 }

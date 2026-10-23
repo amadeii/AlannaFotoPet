@@ -150,8 +150,31 @@ p { color: var(--muted); }
 .image-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; width: 100%; min-width: 0; min-height: 300px; padding: 24px; background: var(--surface); text-align: center; }
 .image-placeholder > span { font: 400 68px/1 var(--font-display); color: var(--muted); }
 .image-placeholder p { font-size: 16px; }
-.testimonials { padding: 60px 20px; }
-.testimonial-grid { display: grid; gap: 24px; }.testimonial-grid blockquote { margin: 0 0 20px; }
+.testimonials { padding-block: var(--section-space); }
+.testimonial-heading { max-width: 760px; margin: 0 auto 36px; text-align: center; }
+.testimonial-heading h2 { color: var(--secondary); }
+.testimonial-heading > p { max-width: 620px; margin: 20px auto 0; font-size: 16px; }
+.testimonial-grid { display: grid; gap: 24px; max-width: 760px; margin-inline: auto; }
+.testimonial-card { min-width: 0; padding: clamp(24px,4vw,48px); border-radius: 10px; background: var(--paper); box-shadow: var(--shadow); transition: background-color var(--motion-ui), transform var(--motion-ui) var(--ease); }
+.testimonial-card:hover { background: var(--surface); transform: translateY(-3px); }
+.testimonial-quote { display: block; height: 40px; color: var(--secondary); font: 400 56px/1 var(--font-display); }
+.testimonial-card blockquote { margin: 8px 0 28px; }
+.testimonial-card blockquote p { color: var(--ink); font-size: 16px; line-height: 1.85; }
+.testimonial-card blockquote p + p { margin-top: 16px; }
+.testimonial-card figcaption { color: var(--accent); font-size: 16px; font-weight: 600; }
+.testimonial-card figcaption span { display: block; margin-top: 4px; color: var(--muted); font-size: var(--text-meta); font-weight: 400; }
+.testimonials--carousel .testimonial-grid { max-width: 1040px; grid-auto-flow: column; grid-auto-columns: min(calc(100% - 44px),460px); align-items: start; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: thin; scrollbar-color: var(--border) var(--page); padding: 6px 0 16px; }
+.testimonials--carousel .testimonial-card { scroll-snap-align: start; padding: clamp(24px,3vw,32px); }
+.testimonial-card blockquote, .testimonial-card figcaption { overflow-wrap: anywhere; }
+.testimonial-controls { display: flex; justify-content: center; gap: 12px; margin-top: 20px; }
+.testimonial-controls button { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid var(--border); border-radius: 50%; background: var(--page); color: var(--accent); transition: background-color var(--motion-ui), color var(--motion-ui); }
+.testimonial-controls button:hover:not(:disabled) { background: var(--accent); color: var(--accent-ink); }
+.testimonial-controls button:disabled { opacity: .4; cursor: default; }
+.testimonial-pagination { display: flex; align-items: center; gap: 2px; }
+.testimonial-controls .testimonial-dot { width: 28px; height: 28px; border: 0; background: transparent; }
+.testimonial-dot::after { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: .35; transition: opacity var(--motion-ui), transform var(--motion-ui); }
+.testimonial-dot[aria-current="true"]::after { opacity: 1; transform: scale(1.3); }
+.testimonial-controls .testimonial-dot:hover { color: var(--secondary); background: transparent; }
 
 /* Approved minimal footer and official SVG contacts. */
 .site-footer { padding: 28px 0 22px; background: var(--page); }
@@ -335,3 +358,20 @@ p { color: var(--muted); }
   .contact-video { padding: 40px; }
   .contact-video video { height: min(80svh,760px); }
 }
+
+/* The Christmas film is the sole media in this part of the campaign. */
+.editorial-rhythm > .scenario--story,
+.editorial-rhythm .scenario--story .scenario-layout { min-height: 0; }
+.scenario--story .scenario-layout { grid-template-columns: minmax(0,1fr); gap: 0; }
+.scenario--story .scenario-copy { text-align: center; }
+.scenario--story .scenario-copy h2 { margin-inline: auto; }
+.scenario--story .scenario-description { margin-inline: auto; }
+.contact-section--video .contact-layout { grid-template-columns: minmax(0,1fr); }
+.contact-section--video .contact-video { padding: 32px 20px 0; }
+.contact-section--video .contact-video video { width: auto; height: min(62svh,560px,calc((100vw - 40px) * 16 / 9)); max-width: 100%; }
+.contact-section--video .contact-inner { width: 100%; max-width: 840px; margin-inline: auto; padding-top: 40px; }
+@media (min-width: 600px) {
+  .contact-section--video .contact-video { padding-top: 48px; }
+  .contact-section--video .contact-video video { height: min(72svh,680px); }
+}
+.contact-section--video .contact-video video:fullscreen { width: 100%; height: 100%; max-width: none; }
