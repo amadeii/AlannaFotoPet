@@ -38,9 +38,8 @@ export function EmotionalHighlight({
   content: SiteContent["emotionalHighlight"];
 }) {
   if (!content) return null;
-  return <section className="emotional-highlight emotional-highlight--integrated" aria-labelledby="highlight-title">
-    {content.photos.length > 0 && <MemoryLane photos={content.photos} side="left" />}
+  return <section className="emotional-highlight emotional-highlight--editorial" aria-labelledby="highlight-title">
     <div className="highlight-copy"><h2 id="highlight-title">{content.text}</h2></div>
-    {content.photos.length > 0 && <MemoryLane photos={[...content.photos].reverse()} side="right" />}
+    {content.photos.length > 0 && <MemoryLane photos={[...content.photos, ...content.photos]} side="left" />}
   </section>;
 }

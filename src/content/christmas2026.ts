@@ -14,13 +14,26 @@ export const christmas2026: SiteContent = {
   },
   ribbon: "Um Natal para guardar",
   edition: "Memórias Natalinas — edição 2026",
-  eyebrow: "Especial de Natal · Bauru, SP",
+  eyebrow: "Especial de Natal 2026",
   title: "Memórias Natalinas",
   subtitle: "Um Natal para guardar • 2026",
   intro:
     "Os pequenos momentos de hoje.\nAs lembranças mais queridas de amanhã.",
   hero: christmasPhotography.hero,
   photography: christmasPhotography.slots,
+  about: {
+    title: "Muito prazer, eu sou a Alanna",
+    paragraphs: [
+      "Sou mãe de pets e sei, de pertinho, o quanto esse amor merece ser guardado.",
+      "Desde 2018, fotografo famílias que, assim como a minha, consideram seus pets parte da família.",
+      "Quero registrar o jeitinho do seu pet e a conexão de vocês. Para que, lá na frente, cada foto te faça lembrar de como é bom viver esse amor.",
+    ],
+  },
+  scenarioVideo: {
+    src: "/videos/memorias-natalinas-2026.mp4",
+    poster: "/videos/memorias-natalinas-2026-poster.webp",
+    title: "Um pouco do ensaio Memórias Natalinas",
+  },
   experience: {
     title: "O tempo passa.\nO afeto fica.",
     paragraphs: [

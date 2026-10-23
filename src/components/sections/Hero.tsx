@@ -7,21 +7,22 @@ import { Portrait } from "../ui/Portrait";
 export function Hero({ content }: { content: SiteContent }) {
   let letterIndex = 0;
   const scene = Boolean(content.photography);
-  return <section className={`hero${scene ? " hero--scene" : ""}`} id="inicio" aria-labelledby="hero-title">
+  return <section className={`hero${scene ? " hero--scene hero--family" : ""}`} id="inicio" aria-labelledby="hero-title">
     <div className="hero-stage">
       <div className="hero-copy">
+        {scene && <p className="eyebrow">{content.eyebrow}</p>}
         <h1 id="hero-title" aria-label={content.title}>
           {content.title.split(" ").map((word) => <span className="hero-word" key={word} aria-hidden="true">
             {Array.from(word).map((letter) => <span className="hero-letter" key={letterIndex}
               style={{ "--letter-index": letterIndex++ } as CSSProperties}>{letter}</span>)}
           </span>)}
         </h1>
-        <p className="hero-subtitle">{content.subtitle}</p>
+        {!scene && <p className="hero-subtitle">{content.subtitle}</p>}
       </div>
       {scene && content.hero ? <figure className="hero-image hero-portrait hero-scene">
         <picture>
           {content.hero.mobileSrc && <source media="(max-width: 999px)" srcSet={content.hero.mobileSrc} />}
-          <img src={content.hero.src} alt={content.hero.alt} loading="eager" fetchPriority="high" decoding="async" width="1200" height="1800" />
+          <img src={content.hero.src} alt={content.hero.alt} loading="eager" fetchPriority="high" decoding="async" width="1800" height="1200" />
         </picture>
       </figure> : <Portrait eager className="hero-image hero-portrait" />}
       <div className="hero-actions"><WhatsAppTrigger intent="Agendar um ensaio">Agendar um ensaio</WhatsAppTrigger></div>

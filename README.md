@@ -2,7 +2,7 @@
 
 Frontend em React, Vite e TypeScript. Campanha inicial: **Memórias Natalinas — Um Natal para guardar • 2026**.
 
-Versão atual: **V1.8.6 local**, com [12 substituições fotográficas sobre a V1.8.5, sem alterações estruturais](docs/V1.8.6-curadoria-fotografica.md). Comparações em `/tmp/v186-qa/comparacao.html`. Institucional preservado. Sem commit, push ou deploy.
+Versão atual: **V1.8.7 local**, com [ajustes da cliente no Hero, apresentação, faixa editorial e cenário com vídeo opcional](docs/V1.8.7-feedback-cliente.md), sobre a base aprovada `c51a513`. Comparações em `/tmp/v187-qa/comparacao.html`. Institucional preservado. Esta rodada está sem commit, push ou deploy.
 
 Base aprovada: [estrutura completa da V1.8 recuperada e nova curadoria](docs/recuperacao-V1.8-curadoria.md). A V1.8.3 preserva essa direção e altera somente os pontos autorizados. Orientações em [AGENTS.md](AGENTS.md).
 

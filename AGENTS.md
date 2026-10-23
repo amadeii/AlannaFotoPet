@@ -9,6 +9,7 @@
 - Exceção autorizada na V1.8.3: frase “Você merece viver isso!” e carrossel formam uma única seção bordô, com trilhas laterais e texto em área central limpa. Hero natalino usa cenário dominante e FAQ preserva o pet inteiro. Não desfazer esses refinamentos nem aplicar suas regras ao institucional.
 - Exceção institucional confirmada pelo usuário: manter a composição da V1.8 idêntica por enquanto, inclusive as três aparições do retrato, até haver materiais institucionais próprios.
 - Exceção autorizada na V1.8.5: campanha natalina alterna exatamente Hero/carrossel, Alanna/faixa bordô, cenário/carrossel, convite/carrossel e FAQ/carrossel. Seções principais têm altura mínima da viewport; galerias existentes usam movimento contínuo. Esta ordem substitui a restrição anterior de não reorganizar, sem autorizar outro redesign ou mudanças no institucional. Detalhes em `docs/V1.8.5-alternancia-estrutural.md`.
+- Rodada V1.8.7 solicitada pela cliente: Hero com a família e os dachshunds, hierarquia textual simplificada, primeiro carrossel em 64 s, apresentação “Muito prazer, eu sou a Alanna”, frase bordô acima de uma faixa fotográfica inteira, cenário com descrição visível, quatro fotos e vídeo opcional sem autoplay. Esta autorização substitui a composição central da V1.8.3 somente nesses pontos; demais carrosséis seguem em 72 s e o institucional permanece intacto. Detalhes em `docs/V1.8.7-feedback-cliente.md`.
 
 ## Arquitetura
 - React, Vite e TypeScript; conteúdo separado dos componentes em `src/content/`.

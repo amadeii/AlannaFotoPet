@@ -17,6 +17,8 @@ export interface SiteContent {
   subtitle: string;
   intro: string;
   hero: Photo | null;
+  about?: { title: string; paragraphs: string[] };
+  scenarioVideo?: { src: string; poster: string; title: string };
   photography?: {
     openingGallery: Photo[];
     closingGallery: Photo[];

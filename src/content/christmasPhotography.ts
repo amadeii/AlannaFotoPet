@@ -14,15 +14,15 @@ import carouselSofi10 from "../assets/christmas/curated/carrossel-sofi-10.webp";
 import carouselSofi18 from "../assets/christmas/curated/carrossel-sofi-18.webp";
 import carouselSofi24 from "../assets/christmas/curated/carrossel-sofi-24.webp";
 import scenario from "../assets/christmas/scenario.webp";
-import scenarioDesktop from "../assets/christmas/scenario-desktop.webp";
 import details from "../assets/christmas/details.webp";
 import gifts from "../assets/christmas/gifts.webp";
+import family from "../assets/christmas/family.webp";
 
 const photo = (src: string, alt: string, position?: string): Photo => ({ src, alt, caption: "", position });
 
 // Assign photographs to existing V1.8 slots; this file does not define layout.
 export const christmasPhotography = {
-  hero: { ...photo(scenarioDesktop, "Cenário Memórias Natalinas com árvore iluminada, poltrona e lareira", "50% 55%"), mobileSrc: scenario },
+  hero: photo(heroDesktop, "Família com seus dachshunds no cenário Memórias Natalinas", "50% 0%"),
   experience: photo(experience, "Tutora abraçando seu pet no cenário natalino", "50% 55%"),
   slots: {
     openingGallery: [
@@ -54,8 +54,10 @@ export const christmasPhotography = {
       photo(carouselSofi18, "Tutor fazendo carinho em seu pet"),
     ],
     scenario: [
-      photo("/images/dercy-natal-2026/dercy-natal-2026-13.webp", "Pet branco e preto na poltrona diante das estrelas vermelhas"),
+      photo(scenario, "Vista ampla do cenário com árvore de Natal, poltrona e lareira"),
+      photo(family, "Família com seus pets em uma vista ampla do cenário natalino", "50% 45%"),
       photo(details, "Lareira decorada com velas e meias natalinas"),
+      photo(gifts, "Detalhe dos presentes e laços bordô da decoração natalina"),
     ],
     faq: photo(carouselCarol15, "Retrato de pet diante das luzes natalinas"),
     contact: photo(contact, "Casal com seu pet diante da árvore de Natal", "50% 38%"),

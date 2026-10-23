@@ -3,6 +3,7 @@ import { site } from "./config/site";
 import { useEditorialMotion } from "./hooks/useEditorialMotion";
 import { WhatsAppInquiryProvider } from "./components/contact/WhatsAppInquiry";
 import { Footer } from "./components/layout/Footer";
+import { DevelopmentCredit } from "./components/layout/DevelopmentCredit";
 import { Hero } from "./components/sections/Hero";
 import { Gallery } from "./components/sections/Gallery";
 import { About } from "./components/sections/About";
@@ -39,18 +40,19 @@ export default function App() {
           <Gallery content={content.gallery} family={content.experience.photo} selection={content.photography?.openingGallery} moving={seasonal} />
           {!seasonal && emotionalBand}
           {!seasonal && openingBand}
-          <About />
+          <About content={content.about} />
           {seasonal && emotionalBand}
           {!seasonal && bridgeBand}
           <Scenario content={content} seasonal={seasonal} />
           <Testimonials />
           {seasonal && bridgeBand}
-          <Contact content={content.contact} photo={content.photography?.contact ?? content.experience.photo} seasonal={seasonal} />
+          <Contact content={content.contact} photo={content.photography?.contact ?? content.experience.photo} seasonal={seasonal} video={content.scenarioVideo} />
           {content.gallery.photos.length > 0 && <Gallery content={content.gallery} family={content.experience.photo} selection={content.photography?.closingGallery} closing moving={seasonal} />}
           <FAQ items={content.faq} photo={content.photography?.faq ?? content.gallery.photos[0]} companion={content.photography?.closing} preparation={content.preparation} />
           {seasonal ? openingBand : <ClosingPortrait />}
         </main>
         <Footer />
+        {seasonal && <DevelopmentCredit />}
       </div>
     </WhatsAppInquiryProvider>
   );
