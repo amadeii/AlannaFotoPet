@@ -65,14 +65,18 @@ export function Testimonials({ items = shared.testimonials.items }: { items?: Te
           }
         } : undefined}>
         {items.map((item) => (
-          <figure key={item.id} className="testimonial-card">
-            <span className="testimonial-quote" aria-hidden="true">“</span>
-            <blockquote>
-              {item.quote.split(/\n\s*\n/u).map((paragraph, index) => <p key={index}>{paragraph}</p>)}
-            </blockquote>
-            <figcaption>
-              {item.name}
-              {item.pet && <span>Pet: {item.pet}</span>}
+          <figure key={item.id} className={`testimonial-card${item.photo ? " testimonial-card--photo" : ""}`}>
+            {item.photo && <img className="testimonial-photo" src={item.photo.src} alt={item.photo.alt}
+              width="854" height="1280" loading="lazy" decoding="async" style={{ objectPosition: item.photo.objectPosition }} />}
+            <figcaption className="testimonial-copy">
+              <span className="testimonial-quote" aria-hidden="true">“</span>
+              <blockquote>
+                {item.quote.split(/\n\s*\n/u).map((paragraph, index) => <p key={index}>{paragraph}</p>)}
+              </blockquote>
+              <div className="testimonial-signature">
+                {item.name}
+                {item.pet && <span>Pet: {item.pet}</span>}
+              </div>
             </figcaption>
           </figure>
         ))}

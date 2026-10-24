@@ -47,4 +47,5 @@ export interface Testimonial {
   name: string;
   quote: string;
   pet?: string;
+  photo?: { src: string; alt: string; objectPosition: string };
 }

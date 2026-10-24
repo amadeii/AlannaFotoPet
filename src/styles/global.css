@@ -161,10 +161,18 @@ p { color: var(--muted); }
 .testimonial-card blockquote { margin: 8px 0 28px; }
 .testimonial-card blockquote p { color: var(--ink); font-size: 16px; line-height: 1.85; }
 .testimonial-card blockquote p + p { margin-top: 16px; }
-.testimonial-card figcaption { color: var(--accent); font-size: 16px; font-weight: 600; }
-.testimonial-card figcaption span { display: block; margin-top: 4px; color: var(--muted); font-size: var(--text-meta); font-weight: 400; }
-.testimonials--carousel .testimonial-grid { max-width: 1040px; grid-auto-flow: column; grid-auto-columns: min(calc(100% - 44px),460px); align-items: start; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: thin; scrollbar-color: var(--border) var(--page); padding: 6px 0 16px; }
+.testimonial-signature { color: var(--accent); font-size: 16px; font-weight: 600; }
+.testimonial-signature span { display: block; margin-top: 4px; color: var(--muted); font-size: var(--text-meta); font-weight: 400; }
+.testimonials--carousel .testimonial-grid { max-width: 1040px; grid-auto-flow: column; grid-auto-columns: calc(100% - 44px); align-items: start; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: thin; scrollbar-color: var(--border) var(--page); padding: 6px 0 16px; }
 .testimonials--carousel .testimonial-card { scroll-snap-align: start; padding: clamp(24px,3vw,32px); }
+.testimonials .testimonial-card--photo { display: grid; padding: 0; overflow: hidden; box-shadow: none; background: var(--paper); }
+.testimonial-photo { display: block; width: 100%; height: auto; aspect-ratio: 854 / 1280; object-fit: contain; }
+.testimonial-copy { min-width: 0; }
+.testimonial-card--photo .testimonial-copy { padding: clamp(24px,3vw,40px); align-self: center; }
+@media (min-width: 900px) {
+  .testimonials--carousel .testimonial-grid { grid-auto-columns: 100%; }
+  .testimonial-card--photo { grid-template-columns: 40% 60%; align-items: center; }
+}
 .testimonial-card blockquote, .testimonial-card figcaption { overflow-wrap: anywhere; }
 .testimonial-controls { display: flex; justify-content: center; gap: 12px; margin-top: 20px; }
 .testimonial-controls button { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid var(--border); border-radius: 50%; background: var(--page); color: var(--accent); transition: background-color var(--motion-ui), color var(--motion-ui); }
