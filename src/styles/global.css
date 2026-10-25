@@ -158,6 +158,7 @@ p { color: var(--muted); }
 .testimonial-card { min-width: 0; padding: clamp(24px,4vw,48px); border-radius: 10px; background: var(--paper); box-shadow: var(--shadow); transition: background-color var(--motion-ui), transform var(--motion-ui) var(--ease); }
 .testimonial-card:hover { background: var(--surface); transform: translateY(-3px); }
 .testimonial-quote { display: block; height: 40px; color: var(--secondary); font: 400 56px/1 var(--font-display); }
+.testimonial-quote--closing { margin-top: 12px; text-align: right; }
 .testimonial-card blockquote { margin: 8px 0 28px; }
 .testimonial-card blockquote p { color: var(--ink); font-size: 16px; line-height: 1.85; }
 .testimonial-card blockquote p + p { margin-top: 16px; }
