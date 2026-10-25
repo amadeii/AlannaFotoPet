@@ -4,9 +4,9 @@ A seção “Histórias que ficam no coração”, exclusiva da campanha natalin
 
 | Assinatura | Original fornecido | Asset local |
 | --- | --- | --- |
-| Ana Carolina Valverde | WhatsApp Image 2026-10-24 at 18.49.15.jpeg | src/assets/christmas/testimonial-ana-carolina.jpeg |
-| Natália Fugiwara | WhatsApp Image 2026-10-24 at 18.48.45.jpeg | src/assets/christmas/testimonial-natalia.jpeg |
 | Laura Meyer | WhatsApp Image 2026-10-24 at 18.50.13.jpeg | src/assets/christmas/testimonial-laura.jpeg |
+| Natália Fugiwara | WhatsApp Image 2026-10-24 at 18.48.45.jpeg | src/assets/christmas/testimonial-natalia.jpeg |
+| Ana Carolina Valverde | WhatsApp Image 2026-10-24 at 18.49.15.jpeg | src/assets/christmas/testimonial-ana-carolina.jpeg |
 
 O pedido menciona `(1)` no nome da foto da Laura, mas o anexo disponível não tem esse sufixo. Foi utilizado o próprio anexo que mostra o casal, os dachshunds e o pet de barriga para cima. As três cópias locais preservam integralmente os arquivos recebidos, sem conversão ou retoque.
 
