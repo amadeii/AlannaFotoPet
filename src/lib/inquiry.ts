@@ -10,7 +10,7 @@ export interface InquiryValues {
 }
 
 export const petCounts = ["1", "2", "3", "4", "5 ou mais"];
-export const peopleCounts = ["0", "1", "2", "3", "4", "5 ou mais"];
+export const peopleCounts = ["1", "2", "3", "4", "5 ou mais"];
 export const investmentOptions = [
   "Entre R$650 e R$850",
   "Entre R$850 e R$1.200",
@@ -72,7 +72,7 @@ export function validateInquiry(values: InquiryValues) {
   if (!/^[1-9]\d*$/u.test(values.pets) || !Number.isSafeInteger(Number(values.pets)))
     errors.pets = "Informe um número inteiro de pets, a partir de 1.";
   if (!peopleCounts.includes(values.people))
-    errors.people = "Selecione quantas pessoas participarão. Pode ser zero.";
+    errors.people = "Selecione quantas pessoas participarão, a partir de 1.";
   const digits = phoneDigits(values.phone);
   if (
     !validDDDs.has(digits.slice(0, 2)) ||
@@ -105,7 +105,7 @@ export function buildInquiryMessage(
     `Nome: ${cleanText(values.name)}`,
     `Raça(s) do(s) pet(s): ${cleanText(values.breed)}`,
     `Total de pets: ${values.pets}`,
-    `Total de pessoas: ${values.people}${values.people === "0" ? " (ensaio somente com pets)" : ""}`,
+    `Total de pessoas: ${values.people}`,
     `Telefone com DDD: ${formatPhone(values.phone)}`,
     `Localização: ${location.city} — ${location.state}`,
     `Investimento desejado: ${values.investment}`,
