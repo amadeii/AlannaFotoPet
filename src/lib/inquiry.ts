@@ -4,14 +4,19 @@ export interface InquiryValues {
   pets: string;
   people: string;
   phone: string;
-  city: string;
-  state: string;
+  location: string;
+  investment: string;
+  confirmed: boolean;
 }
 
 export const investmentRange =
   "Faixa de valores dos ensaios: R$ 650 a R$ 1.260";
-export const petCounts = ["1", "2", "3", "4", "5 ou mais"];
-export const peopleCounts = ["0", ...petCounts];
+export const peopleCounts = ["0", "1", "2", "3", "4", "5 ou mais"];
+export const investmentOptions = [
+  "Entre R$650 e R$850",
+  "Entre R$850 e R$ 1.200",
+  "Indiferente, dependendo da entrega",
+];
 export const states = [
   "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO",
   "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI",
@@ -25,6 +30,15 @@ const validDDDs = new Set(
 
 export function cleanText(value: string) {
   return value.replace(/\s+/gu, " ").trim();
+}
+
+export function parseLocation(value: string) {
+  const match = cleanText(value).match(/^(.+?)\s*(?:[-–—,/]\s*|\s+)([a-z]{2})$/iu);
+  if (!match) return null;
+  const city = cleanText(match[1]);
+  const state = match[2].toUpperCase();
+  if (city.length < 2 || city.length > 100 || (city.match(/\p{L}/gu)?.length ?? 0) < 2 || !states.includes(state)) return null;
+  return { city, state };
 }
 
 export function phoneDigits(value: string) {
@@ -51,16 +65,13 @@ export function validateInquiry(values: InquiryValues) {
   )
     errors.name = "Informe seu nome, com pelo menos duas letras.";
   const breed = cleanText(values.breed);
-  const city = cleanText(values.city);
-  if (city.length < 2 || city.length > 100 || (city.match(/\p{L}/gu)?.length ?? 0) < 2)
-    errors.city = "Informe sua cidade.";
-  if (!states.includes(values.state))
-    errors.state = "Selecione seu estado.";
+  if (!parseLocation(values.location))
+    errors.location = "Informe sua cidade e a sigla do estado. Ex.: São Paulo - SP.";
   if (!breed || breed.length > 180 || !/\p{L}/u.test(breed))
     errors.breed =
       "Informe a raça ou escreva SRD / sem raça definida. Pode listar várias raças.";
-  if (!petCounts.includes(values.pets))
-    errors.pets = "Selecione quantos pets participarão.";
+  if (!/^[1-9]\d*$/u.test(values.pets) || !Number.isSafeInteger(Number(values.pets)))
+    errors.pets = "Informe um número inteiro de pets, a partir de 1.";
   if (!peopleCounts.includes(values.people))
     errors.people = "Selecione quantas pessoas participarão. Pode ser zero.";
   const digits = phoneDigits(values.phone);
@@ -73,6 +84,10 @@ export function validateInquiry(values: InquiryValues) {
   )
     errors.phone =
       "Informe um telefone brasileiro válido com DDD, com 10 ou 11 dígitos.";
+  if (!investmentOptions.includes(values.investment))
+    errors.investment = "Selecione quanto você pensa em investir nas suas memórias.";
+  if (values.confirmed !== true)
+    errors.confirmed = "Confirme que as informações são verdadeiras para continuar.";
   return errors;
 }
 
@@ -83,6 +98,7 @@ export function buildInquiryMessage(
 ) {
   if (Object.keys(validateInquiry(values)).length)
     throw new Error("Preencha os campos obrigatórios corretamente.");
+  const location = parseLocation(values.location)!;
   return [
     themeMessage,
     "",
@@ -92,7 +108,9 @@ export function buildInquiryMessage(
     `Total de pets: ${values.pets}`,
     `Total de pessoas: ${values.people}${values.people === "0" ? " (ensaio somente com pets)" : ""}`,
     `Telefone com DDD: ${formatPhone(values.phone)}`,
-    `Localização: ${cleanText(values.city)} — ${values.state}`,
+    `Localização: ${location.city} — ${location.state}`,
+    `Investimento desejado: ${values.investment}`,
+    "Confirmo que as informações acima são verdadeiras.",
     "",
     "Gostaria de conversar sobre os detalhes do ensaio.",
   ].join("\n");

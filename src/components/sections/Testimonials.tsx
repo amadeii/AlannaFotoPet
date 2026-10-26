@@ -3,7 +3,7 @@ import { shared } from "../../content/shared";
 import type { Testimonial } from "../../content/types";
 
 export function Testimonials({ items = shared.testimonials.items }: { items?: Testimonial[] }) {
-  const { title, intro } = shared.testimonials;
+  const { title } = shared.testimonials;
   const track = useRef<HTMLDivElement>(null);
   const [edges, setEdges] = useState({ start: true, end: false });
   const [positions, setPositions] = useState<number[]>([]);
@@ -50,7 +50,6 @@ export function Testimonials({ items = shared.testimonials.items }: { items?: Te
     >
       <div className="section-heading testimonial-heading">
         <h2 id="testimonials-title">{title}</h2>
-        <p>{intro}</p>
       </div>
       <div className="testimonial-grid" id="testimonial-track" ref={track} onScroll={multiple ? updateEdges : undefined}
         role={multiple ? "region" : undefined} aria-label={multiple ? "Depoimentos de clientes" : undefined}

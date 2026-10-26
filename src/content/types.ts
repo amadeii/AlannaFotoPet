@@ -37,7 +37,7 @@ export interface SiteContent {
     tips: string[];
     colors: { name: string; token: string }[];
   } | null;
-  faq: { question: string; answer: string }[];
+  faq: { question: string; answer: string; includePreparation?: boolean }[];
   contact: { title: string; text: string; status: string };
   seo: { title: string; description: string };
 }

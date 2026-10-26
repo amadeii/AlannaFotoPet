@@ -22,7 +22,7 @@ export function Contact({ content, photo, seasonal, video }: { content: SiteCont
       <div className="contact-layout container">
       {seasonal && video ? <ScenarioVideo content={video} /> : photo && <PhotoFrame photo={photo} className="contact-photo" />}
       <div className="contact-inner">
-        <Eyebrow>{seasonal ? "Um Natal para guardar" : "Fotografia pet"}</Eyebrow>
+        {!seasonal && <Eyebrow>Fotografia pet</Eyebrow>}
         <h2>{content.title}</h2>
         <p>{content.text}</p>
         <ContactInterest status={content.status} />

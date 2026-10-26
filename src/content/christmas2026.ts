@@ -22,11 +22,11 @@ export const christmas2026: SiteContent = {
   hero: christmasPhotography.hero,
   photography: christmasPhotography.slots,
   about: {
-    title: "Muito prazer, eu sou a Alanna",
+    title: "Muito prazer, eu sou a Alanna!",
     paragraphs: [
-      "Sou mãe de pets e sei, de pertinho, o quanto esse amor merece ser guardado.",
+      "Antes de ser fotógrafa, também sou mãe de pets e sei o quanto esse amor merece ser guardado.",
       "Desde 2018, fotografo famílias que, assim como a minha, consideram seus pets parte da família.",
-      "Quero registrar o jeitinho do seu pet e a conexão de vocês. Para que, lá na frente, cada foto te faça lembrar de como é bom viver esse amor.",
+      "Meu propósito é registrar o jeitinho do seu pet e a conexão de vocês, para que, lá na frente, cada foto te faça lembrar de como é bom viver esse amor.",
     ],
   },
   scenarioVideo: {
@@ -105,12 +105,13 @@ export const christmas2026: SiteContent = {
     {
       question: "Como funciona o agendamento?",
       answer:
-        "O agendamento é combinado diretamente com a Alanna pelo WhatsApp. Converse com ela para saber as datas disponíveis e os detalhes do seu ensaio.",
+        "O agendamento é todo feito pelo WhatsApp. As reservas são realizadas mediante pagamento integral ou parcial (sinal).",
     },
     {
-      question: "Quais roupas são recomendadas?",
+      question: "Qual look usar na sessão?",
+      includePreparation: true,
       answer:
-        "Prefira off-white, bege, caramelo escuro, verde oliva e bordô. Evite estampas e cores fora dessa paleta. Tecidos frescos ajudam a manter o conforto durante a sessão.",
+        "Pequenas escolhas deixam as fotos ainda mais bonitas — e todo mundo mais à vontade.",
     },
     {
       question: "Meu pet precisa usar roupinha?",

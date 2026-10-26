@@ -5,9 +5,8 @@ import {
   buildInquiryMessage,
   formatPhone,
   investmentRange,
-  petCounts,
   peopleCounts,
-  states,
+  investmentOptions,
   validateInquiry,
 } from "../../lib/inquiry";
 import type { InquiryValues } from "../../lib/inquiry";
@@ -90,8 +89,9 @@ function InquiryDialog({
     pets: "",
     people: "",
     phone: "",
-    city: "",
-    state: "",
+    location: "",
+    investment: "",
+    confirmed: false,
   });
   const [touched, setTouched] = useState<
     Partial<Record<keyof InquiryValues, boolean>>
@@ -118,15 +118,7 @@ function InquiryDialog({
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!valid) {
-      setTouched({
-        name: true,
-        breed: true,
-        pets: true,
-        people: true,
-        phone: true,
-        city: true,
-        state: true,
-      });
+      setTouched(Object.fromEntries(Object.keys(values).map((key) => [key, true])));
       return;
     }
     const destination = getWhatsAppUrl(
@@ -143,7 +135,7 @@ function InquiryDialog({
     close();
   }
 
-  function field(key: keyof InquiryValues) {
+  function field(key: Exclude<keyof InquiryValues, "confirmed">) {
     return {
       id: `inquiry-${key}`,
       name: key,
@@ -152,7 +144,7 @@ function InquiryDialog({
       "aria-invalid": Boolean(touched[key] && errors[key]),
       "aria-describedby":
         [
-          `inquiry-${key}-hint`,
+          ["breed", "phone", "location"].includes(key) ? `inquiry-${key}-hint` : "",
           touched[key] && errors[key] ? `inquiry-${key}-error` : "",
         ]
           .filter(Boolean)
@@ -258,111 +250,72 @@ function InquiryDialog({
             Conte um pouquinho sobre vocês. Essas informações vão preparar nossa
             conversa no WhatsApp.
           </p>
-          <p className="inquiry-range">{investmentRange.replaceAll("R$ ", "R$\u00a0")}</p>
         </div>
         <form className="inquiry-form" onSubmit={submit} noValidate>
+          <div className="inquiry-fields">
+            <div className="inquiry-field">
+              <label htmlFor="inquiry-name">Qual é o seu nome?</label>
+              <input {...field("name")} ref={firstInput} type="text" autoComplete="name" maxLength={100} placeholder="Seu nome completo" />
+              {error("name")}
+            </div>
+            <div className="inquiry-field">
+              <label htmlFor="inquiry-breed">Qual a raça do seu pet?</label>
+              <input {...field("breed")} type="text" maxLength={180} placeholder="Ex.: Golden, SRD, Poodle..." />
+              <span id="inquiry-breed-hint" className="inquiry-hint">Pode listar várias raças ou escrever sem raça definida.</span>
+              {error("breed")}
+            </div>
+            <div className="inquiry-field">
+              <label htmlFor="inquiry-pets">Quantos pets vão participar do ensaio?</label>
+              <input {...field("pets")} type="number" inputMode="numeric" min="1" step="1" placeholder="Digite o número" />
+              {error("pets")}
+            </div>
+            <fieldset className="inquiry-field inquiry-choice-group" aria-describedby={touched.people && errors.people ? "inquiry-people-error" : undefined}>
+              <legend>Quantas pessoas vão participar do ensaio?</legend>
+              <div className="inquiry-people-options">
+                {peopleCounts.map((count) => <label key={count} className="inquiry-person-option">
+                  <input {...field("people")} id={`inquiry-people-${count === "5 ou mais" ? "5-plus" : count}`} type="radio" value={count} checked={values.people === count} />
+                  <span>{count === "5 ou mais" ? "5+" : count}</span>
+                </label>)}
+              </div>
+              <span className="inquiry-hint">Zero para ensaio somente com pets.</span>
+              {error("people")}
+            </fieldset>
+            <div className="inquiry-field">
+              <label htmlFor="inquiry-phone">Qual o seu WhatsApp?</label>
+              <input {...field("phone")} type="tel" inputMode="tel" autoComplete="tel" placeholder="(00) 00000-0000" />
+              <span id="inquiry-phone-hint" className="inquiry-hint">Informe o número com DDD.</span>
+              {error("phone")}
+            </div>
+            <div className="inquiry-field">
+              <label htmlFor="inquiry-location">Me conte sua cidade e Estado:</label>
+              <input {...field("location")} type="text" maxLength={110} placeholder="Ex.: São Paulo - SP" />
+              <span id="inquiry-location-hint" className="inquiry-hint">Escreva a cidade e a sigla do estado.</span>
+              {error("location")}
+            </div>
+            <p className="inquiry-range inquiry-wide">{investmentRange.replaceAll("R$ ", "R$\u00a0")}</p>
+            <fieldset className="inquiry-field inquiry-choice-group inquiry-wide" aria-describedby={touched.investment && errors.investment ? "inquiry-investment-error" : undefined}>
+              <legend>Quanto você pensa em investir nas suas memórias?</legend>
+              <div className="inquiry-investment-options">
+                {investmentOptions.map((option, index) => <label key={option} className="inquiry-investment-option">
+                  <input {...field("investment")} id={`inquiry-investment-${index}`} type="radio" value={option} checked={values.investment === option} />
+                  <span>{option}</span>
+                </label>)}
+              </div>
+              {error("investment")}
+            </fieldset>
+            <div className="inquiry-wide">
+              <label className="inquiry-confirmation" htmlFor="inquiry-confirmed">
+                <input id="inquiry-confirmed" name="confirmed" type="checkbox" required checked={values.confirmed}
+                  aria-invalid={Boolean(touched.confirmed && errors.confirmed)}
+                  aria-describedby={touched.confirmed && errors.confirmed ? "inquiry-confirmed-error" : undefined}
+                  onBlur={() => setTouched((previous) => ({ ...previous, confirmed: true }))}
+                  onChange={(event) => setValues((previous) => ({ ...previous, confirmed: event.target.checked }))} />
+                <span>Estou ciente de que todas as informações são verdadeiras. <span className="inquiry-required-mark" aria-hidden="true">*</span></span>
+              </label>
+              {error("confirmed")}
+            </div>
+          </div>
           <p className="inquiry-required">Todos os campos são obrigatórios.</p>
-          <fieldset className="inquiry-group">
-            <legend>Sobre vocês</legend>
-            <div className="inquiry-fields">
-              <div className="inquiry-field inquiry-wide">
-                <label htmlFor="inquiry-name">Nome da pessoa</label>
-                <input
-                  {...field("name")}
-                  ref={firstInput}
-                  type="text"
-                  autoComplete="name"
-                  maxLength={100}
-                />
-                <span id="inquiry-name-hint" className="inquiry-hint">
-                  Como você gostaria de ser chamado(a)?
-                </span>
-                {error("name")}
-              </div>
-              <div className="inquiry-field inquiry-wide">
-                <label htmlFor="inquiry-breed">Raça do pet</label>
-                <input {...field("breed")} type="text" maxLength={180} />
-                <span id="inquiry-breed-hint" className="inquiry-hint">
-                  Pode escrever SRD, sem raça definida ou listar várias raças.
-                </span>
-                {error("breed")}
-              </div>
-              <div className="inquiry-field">
-                <label htmlFor="inquiry-pets">Quantos pets?</label>
-                <select {...field("pets")}>
-                  <option value="">Selecione</option>
-                  {petCounts.map((count) => (
-                    <option value={count} key={count}>
-                      {count}
-                    </option>
-                  ))}
-                </select>
-                <span id="inquiry-pets-hint" className="inquiry-hint">
-                  Pelo menos um pet.
-                </span>
-                {error("pets")}
-              </div>
-              <div className="inquiry-field">
-                <label htmlFor="inquiry-people">Quantas pessoas?</label>
-                <select {...field("people")}>
-                  <option value="">Selecione</option>
-                  {peopleCounts.map((count) => (
-                    <option value={count} key={count}>
-                      {count === "0" ? "0 — somente pets" : count}
-                    </option>
-                  ))}
-                </select>
-                <span id="inquiry-people-hint" className="inquiry-hint">
-                  Zero para ensaio somente com pets.
-                </span>
-                {error("people")}
-              </div>
-            </div>
-          </fieldset>
-          <fieldset className="inquiry-group">
-            <legend>Como conversar</legend>
-            <div className="inquiry-fields">
-              <div className="inquiry-field inquiry-wide">
-                <label htmlFor="inquiry-phone">Telefone com DDD</label>
-                <input
-                  {...field("phone")}
-                  type="tel"
-                  inputMode="tel"
-                  autoComplete="tel"
-                />
-                <span id="inquiry-phone-hint" className="inquiry-hint">
-                  Celular ou telefone fixo brasileiro com DDD.
-                </span>
-                {error("phone")}
-              </div>
-              <div className="inquiry-field">
-                <label htmlFor="inquiry-city">Cidade</label>
-                <input
-                  {...field("city")}
-                  type="text"
-                  autoComplete="address-level2"
-                  maxLength={100}
-                />
-                <span id="inquiry-city-hint" className="inquiry-hint">
-                  Em qual cidade você mora?
-                </span>
-                {error("city")}
-              </div>
-              <div className="inquiry-field">
-                <label htmlFor="inquiry-state">Estado</label>
-                <select {...field("state")} autoComplete="address-level1">
-                  <option value="">Selecione</option>
-                  {states.map((state) => (
-                    <option value={state} key={state}>{state}</option>
-                  ))}
-                </select>
-                <span id="inquiry-state-hint" className="inquiry-hint">
-                  Selecione a UF.
-                </span>
-                {error("state")}
-              </div>
-            </div>
-          </fieldset>
           <div className="inquiry-conclusion">
             <p className="inquiry-validation" aria-live="polite">
               {valid

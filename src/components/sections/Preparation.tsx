@@ -2,10 +2,22 @@ import type { SiteContent } from "../../content/types";
 import { Eyebrow } from "../ui/Elements";
 export function Preparation({
   content,
+  compact = false,
 }: {
   content: SiteContent["preparation"];
+  compact?: boolean;
 }) {
   if (!content) return null;
+  if (compact) return <div className="preparation-inline">
+    <div className="color-palette" aria-label="Paleta sugerida de roupas">
+      {content.colors.map((color) => <div key={color.token}>
+        <span className={`swatch swatch-${color.token}`} />
+        <span>{color.name}</span>
+      </div>)}
+    </div>
+    {content.tips.map((tip) => <p key={tip}>{tip}</p>)}
+    <p>O melhor look é aquele em que vocês se sentem bem.</p>
+  </div>;
   return (
     <section className="section preparation container reveal" id="preparacao">
       <div>

@@ -122,6 +122,11 @@ p { color: var(--muted); }
 .faq-photo .photo-media { aspect-ratio: 1.3; }
 .faq-photo img { object-position: 50% 62%; }
 .faq-list { min-width: 0; padding: 40px 20px 52px; }
+.faq-booking { display: flex; justify-content: center; margin-top: 28px; }
+.preparation-inline { padding: 0 20px 24px 56px; }
+.preparation-inline .color-palette { margin-top: 0; }
+.faq-answer .preparation-inline p { padding: 0; }
+.preparation-inline p + p { margin-top: 16px; }
 .faq-list > h2 { margin-bottom: 30px; text-align: center; font: 500 18px/1.6 var(--font-body); letter-spacing: .08em; text-transform: uppercase; }
 .faq-item { margin-top: 12px; border-radius: 10px; background: var(--paper); overflow: clip; }
 .faq-item h3 { font: inherit; letter-spacing: 0; }

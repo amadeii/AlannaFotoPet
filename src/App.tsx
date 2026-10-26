@@ -47,7 +47,7 @@ export default function App() {
           {seasonal && <Testimonials />}
           <Contact content={content.contact} photo={content.photography?.contact ?? content.experience.photo} seasonal={seasonal} video={content.scenarioVideo} />
           {content.gallery.photos.length > 0 && <Gallery content={content.gallery} family={content.experience.photo} selection={content.photography?.closingGallery} closing moving={seasonal} />}
-          <FAQ items={content.faq} photo={content.photography?.faq ?? content.gallery.photos[0]} companion={content.photography?.closing} preparation={content.preparation} />
+          <FAQ items={content.faq} photo={content.photography?.faq ?? content.gallery.photos[0]} companion={content.photography?.closing} preparation={content.preparation} booking={seasonal} />
           {seasonal ? openingBand : <ClosingPortrait />}
         </main>
         <Footer />

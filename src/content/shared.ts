@@ -20,8 +20,7 @@ export const shared = {
     portrait: portrait as string | null,
   },
   testimonials: {
-    title: "Histórias que ficam no coração",
-    intro: "Cada encontro é único. E algumas palavras mostram o quanto essas memórias significam.",
+    title: "O que dizem as famílias que já passaram por aqui",
     // Adicionar somente avaliações reais recebidas e aprovadas pela cliente.
     items: [{
       id: "laura-meyer",

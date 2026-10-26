@@ -1,5 +1,7 @@
 # Alanna Rodrigues — Fotografia Pet
 
+Ajustes de 26/10/2026: [apresentação, depoimentos, FAQ e formulário unificado](docs/ajustes-cliente-2026-10-26.md). Esse registro atualiza o fluxo de pré-atendimento descrito nas versões históricas abaixo.
+
 Frontend em React, Vite e TypeScript. Campanha inicial: **Memórias Natalinas — Um Natal para guardar • 2026**.
 
 Versão atual: **V1.8.7 local**, com [ajustes da cliente no Hero, apresentação, faixa editorial e cenário com vídeo opcional](docs/V1.8.7-feedback-cliente.md), sobre a base aprovada `c51a513`. Comparações em `/tmp/v187-qa/comparacao.html`. Institucional preservado. Esta rodada está sem commit, push ou deploy.
