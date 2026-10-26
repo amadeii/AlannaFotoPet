@@ -4,7 +4,7 @@ import { getWhatsAppUrl } from "../../config/contact";
 import {
   buildInquiryMessage,
   formatPhone,
-  investmentRange,
+  petCounts,
   peopleCounts,
   investmentOptions,
   validateInquiry,
@@ -12,6 +12,138 @@ import {
 import type { InquiryValues } from "../../lib/inquiry";
 import { Arrow } from "../ui/Elements";
 import { Icon } from "../ui/Icon";
+
+type InquiryChoiceField = "pets" | "people" | "investment";
+
+function isExactPetCount(value: string) {
+  return /^\d+$/u.test(value) && Number.isSafeInteger(Number(value)) && Number(value) >= 5;
+}
+
+function ExpandableSelect({
+  field,
+  label,
+  options,
+  value,
+  error,
+  onChange,
+  onBlur,
+  exactCount = false,
+}: {
+  field: InquiryChoiceField;
+  label: string;
+  options: string[];
+  value: string;
+  error?: string;
+  onChange: (value: string) => void;
+  onBlur: () => void;
+  exactCount?: boolean;
+}) {
+  const [open, setOpen] = useState(false);
+  const [exactValue, setExactValue] = useState("");
+  const trigger = useRef<HTMLButtonElement>(null);
+  const exactCountInput = useRef<HTMLInputElement>(null);
+  const selectedLabel = value === "5 ou mais" ? "5+" : value;
+  const moreSelected =
+    value === "5 ou mais" || (exactCount && isExactPetCount(value));
+  const exactValueIsValid = isExactPetCount(exactValue);
+
+  function closeOptions() {
+    setOpen(false);
+    requestAnimationFrame(() => trigger.current?.focus());
+  }
+
+  return (
+    <fieldset
+      className={`inquiry-field inquiry-choice-group${field === "investment" ? " inquiry-wide" : ""}`}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) onBlur();
+      }}
+      onKeyDown={(event) => {
+        if (event.key === "Escape" && open) {
+          event.stopPropagation();
+          closeOptions();
+        }
+      }}
+    >
+      <legend>{label}</legend>
+      <button
+        ref={trigger}
+        id={`inquiry-${field}`}
+        className="inquiry-select-trigger"
+        type="button"
+        aria-expanded={open}
+        aria-controls={`inquiry-${field}-options`}
+        aria-invalid={Boolean(error)}
+        aria-describedby={error ? `inquiry-${field}-error` : undefined}
+        onClick={() => {
+          if (!open && exactCount && isExactPetCount(value)) setExactValue(value);
+          setOpen((previous) => !previous);
+        }}
+      >
+        <span className={selectedLabel ? "inquiry-select-value" : "inquiry-select-placeholder"}>
+          {selectedLabel || "Selecione uma opção"}
+        </span>
+        <Icon name="arrow-down" />
+      </button>
+      <div
+        id={`inquiry-${field}-options`}
+        className="inquiry-select-options"
+        hidden={!open}
+      >
+        {options.map((option) => (
+          <label className="inquiry-select-option" key={option}>
+            <input
+              type="radio"
+              name={field}
+              value={option}
+              required
+              checked={option === "5 ou mais" && exactCount ? moreSelected : value === option}
+              onChange={() => {
+                if (option === "5 ou mais" && exactCount) {
+                  setExactValue(isExactPetCount(value) ? value : "");
+                  onChange(option);
+                  requestAnimationFrame(() => exactCountInput.current?.focus());
+                  return;
+                }
+                onChange(option);
+                closeOptions();
+              }}
+            />
+            <span>{option === "5 ou mais" ? "5+" : option}</span>
+          </label>
+        ))}
+        {exactCount && moreSelected && (
+          <div className="inquiry-exact-count-entry">
+            <label htmlFor="inquiry-pets-exact">Digite a quantidade exata (5 ou mais)</label>
+            <input
+              ref={exactCountInput}
+              id="inquiry-pets-exact"
+              className="inquiry-exact-count"
+              type="number"
+              inputMode="numeric"
+              min="5"
+              step="1"
+              value={exactValue}
+              onChange={(event) => setExactValue(event.target.value)}
+            />
+            <button
+              className="inquiry-select-confirm"
+              type="button"
+              disabled={!exactValueIsValid}
+              onClick={() => {
+                onChange(exactValue);
+                closeOptions();
+              }}
+            >
+              Confirmar quantidade
+            </button>
+          </div>
+        )}
+      </div>
+      {error ? <p className="inquiry-error" id={`inquiry-${field}-error`}>{error}</p> : null}
+    </fieldset>
+  );
+}
 
 type Request = { intent: string; trigger: HTMLButtonElement };
 const InquiryContext = createContext<((request: Request) => void) | null>(null);
@@ -186,6 +318,29 @@ function InquiryDialog({
       </p>
     ) : null;
   }
+  function choice(
+    key: InquiryChoiceField,
+    label: string,
+    options: string[],
+    exactCount = false,
+  ) {
+    return (
+      <ExpandableSelect
+        field={key}
+        label={label}
+        options={options}
+        value={values[key]}
+        error={touched[key] ? errors[key] : undefined}
+        onChange={(value) =>
+          setValues((previous) => ({ ...previous, [key]: value }))
+        }
+        onBlur={() =>
+          setTouched((previous) => ({ ...previous, [key]: true }))
+        }
+        exactCount={exactCount}
+      />
+    );
+  }
 
   return (
     <dialog
@@ -198,9 +353,9 @@ function InquiryDialog({
       aria-describedby="inquiry-description"
       onKeyDown={(event) => {
         if (event.key !== "Tab") return;
-        const controls = event.currentTarget.querySelectorAll<HTMLElement>(
+        const controls = Array.from(event.currentTarget.querySelectorAll<HTMLElement>(
           "button:not(:disabled), input, select",
-        );
+        )).filter((control) => control.getClientRects().length > 0);
         const first = controls[0];
         const last = controls[controls.length - 1];
         if (event.shiftKey && document.activeElement === first) {
@@ -264,22 +419,17 @@ function InquiryDialog({
               <span id="inquiry-breed-hint" className="inquiry-hint">Pode listar várias raças ou escrever sem raça definida.</span>
               {error("breed")}
             </div>
-            <div className="inquiry-field">
-              <label htmlFor="inquiry-pets">Quantos pets vão participar do ensaio?</label>
-              <input {...field("pets")} type="number" inputMode="numeric" min="1" step="1" placeholder="Digite o número" />
-              {error("pets")}
-            </div>
-            <fieldset className="inquiry-field inquiry-choice-group" aria-describedby={touched.people && errors.people ? "inquiry-people-error" : undefined}>
-              <legend>Quantas pessoas vão participar do ensaio?</legend>
-              <div className="inquiry-people-options">
-                {peopleCounts.map((count) => <label key={count} className="inquiry-person-option">
-                  <input {...field("people")} id={`inquiry-people-${count === "5 ou mais" ? "5-plus" : count}`} type="radio" value={count} checked={values.people === count} />
-                  <span>{count === "5 ou mais" ? "5+" : count}</span>
-                </label>)}
-              </div>
-              <span className="inquiry-hint">Zero para ensaio somente com pets.</span>
-              {error("people")}
-            </fieldset>
+            {choice(
+              "pets",
+              "Quantos pets vão participar do ensaio?",
+              petCounts,
+              true,
+            )}
+            {choice(
+              "people",
+              "Quantas pessoas vão participar do ensaio?",
+              peopleCounts,
+            )}
             <div className="inquiry-field">
               <label htmlFor="inquiry-phone">Qual o seu WhatsApp?</label>
               <input {...field("phone")} type="tel" inputMode="tel" autoComplete="tel" placeholder="(00) 00000-0000" />
@@ -292,17 +442,11 @@ function InquiryDialog({
               <span id="inquiry-location-hint" className="inquiry-hint">Escreva a cidade e a sigla do estado.</span>
               {error("location")}
             </div>
-            <p className="inquiry-range inquiry-wide">{investmentRange.replaceAll("R$ ", "R$\u00a0")}</p>
-            <fieldset className="inquiry-field inquiry-choice-group inquiry-wide" aria-describedby={touched.investment && errors.investment ? "inquiry-investment-error" : undefined}>
-              <legend>Quanto você pensa em investir nas suas memórias?</legend>
-              <div className="inquiry-investment-options">
-                {investmentOptions.map((option, index) => <label key={option} className="inquiry-investment-option">
-                  <input {...field("investment")} id={`inquiry-investment-${index}`} type="radio" value={option} checked={values.investment === option} />
-                  <span>{option}</span>
-                </label>)}
-              </div>
-              {error("investment")}
-            </fieldset>
+            {choice(
+              "investment",
+              "Quanto você pensa em investir nas suas memórias?",
+              investmentOptions,
+            )}
             <div className="inquiry-wide">
               <label className="inquiry-confirmation" htmlFor="inquiry-confirmed">
                 <input id="inquiry-confirmed" name="confirmed" type="checkbox" required checked={values.confirmed}

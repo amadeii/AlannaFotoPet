@@ -9,12 +9,11 @@ export interface InquiryValues {
   confirmed: boolean;
 }
 
-export const investmentRange =
-  "Faixa de valores dos ensaios: R$ 650 a R$ 1.260";
+export const petCounts = ["1", "2", "3", "4", "5 ou mais"];
 export const peopleCounts = ["0", "1", "2", "3", "4", "5 ou mais"];
 export const investmentOptions = [
   "Entre R$650 e R$850",
-  "Entre R$850 e R$ 1.200",
+  "Entre R$850 e R$1.200",
   "Indiferente, dependendo da entrega",
 ];
 export const states = [

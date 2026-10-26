@@ -28,7 +28,7 @@ export const evergreen: SiteContent = {
   contact: {
     title: "Um espaço\npara conversar.",
     text: "Vamos conversar sobre a experiência que você deseja viver com seu pet?",
-    status: "Converse com a Alanna para combinar os detalhes do seu ensaio.",
+    status: "",
   },
   seo: {
     title: "Alanna Rodrigues | Fotografia Pet em Bauru",

@@ -12,7 +12,7 @@ export function ContactInterest({ status }: { status: string }) {
           Agendar um ensaio
         </WhatsAppTrigger>
       </div>
-      <p>{status}</p>
+      {status && <p>{status}</p>}
     </div>
   );
 }

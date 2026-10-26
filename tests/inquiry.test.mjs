@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { buildInquiryMessage, formatPhone, phoneDigits, validateInquiry, investmentRange, investmentOptions, parseLocation } from "../src/lib/inquiry.ts";
+import { buildInquiryMessage, formatPhone, phoneDigits, validateInquiry, petCounts, peopleCounts, investmentOptions, parseLocation } from "../src/lib/inquiry.ts";
 import { contact, getWhatsAppUrl } from "../src/config/contact.ts";
 
 const values = { name: "João D’Ávila & Ana", breed: "SRD, poodle e sem raça definida", pets: "7", people: "0", phone: "+55 (11) 90000-0000", location: "São Paulo - SP", investment: investmentOptions[0], confirmed: true };
@@ -33,7 +33,7 @@ test("mensagem guarda tema, intenção, contagens e preferência de investimento
     assert.ok(message.includes("Nome: João D’Ávila & Ana"));
     assert.ok(message.includes("Total de pets: 7"));
     assert.ok(message.includes("Total de pessoas: 0 (ensaio somente com pets)"));
-    assert.ok(!message.includes(investmentRange));
+    assert.ok(!message.includes("Faixa de valores dos ensaios: R$ 650 a R$ 1.260"));
     assert.ok(message.includes(`Investimento desejado: ${values.investment}`));
     assert.ok(message.includes("Confirmo que as informações acima são verdadeiras."));
     assert.ok(message.includes("Interesse: Agendar um ensaio"));
@@ -69,6 +69,8 @@ test("investimento e confirmação são obrigatórios, sem seleção automática
   assert.throws(()=>buildInquiryMessage({...values,investment:""},"Tema","Agendar"));
 });
 test("número de pets aceita inteiros positivos e rejeita números inválidos", () => {
+  assert.deepEqual(petCounts, ["1", "2", "3", "4", "5 ou mais"]);
+  assert.deepEqual(peopleCounts, ["0", "1", "2", "3", "4", "5 ou mais"]);
   for (const pets of ["1", "5", "12"]) assert.deepEqual(validateInquiry({...values,pets}), {});
-  for (const pets of ["0", "-1", "1.5", "abc", "1e2", "9007199254740992"]) assert.ok(validateInquiry({...values,pets}).pets, pets);
+  for (const pets of ["0", "-1", "1.5", "abc", "1e2", "5 ou mais", "9007199254740992"]) assert.ok(validateInquiry({...values,pets}).pets, pets);
 });

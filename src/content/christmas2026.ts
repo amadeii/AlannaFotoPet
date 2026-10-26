@@ -122,7 +122,7 @@ export const christmas2026: SiteContent = {
   contact: {
     title: "Vamos guardar\nesse Natal?",
     text: "Um encontro com quem você ama. Uma lembrança para levar por muitos Natais.",
-    status: "Converse com a Alanna para combinar os detalhes do seu ensaio.",
+    status: "",
   },
   seo: {
     title: "Memórias Natalinas 2026 | Alanna Rodrigues Fotografia Pet",
