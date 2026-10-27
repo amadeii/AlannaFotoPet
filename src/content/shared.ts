@@ -35,7 +35,6 @@ export const shared = {
     }, {
       id: "ana-carolina-valverde",
       name: "Ana Carolina Valverde",
-      pet: "Filó",
       photo: { src: anaPhoto, alt: "Ana Carolina e seu companheiro no cenário de Natal com vários dachshunds, um deles de barriga para cima em primeiro plano.", objectPosition: "50% 75%" },
       quote: "Eu não tenho nem o que falar, né? Ficaram lindíssimas, perfeitas!\n\nAmei cada detalhe, cada foto vou guardar com tanto carinho.\n\nDa Filó, ainda, fiquei impressionada! Ela é muito desconfiada com todo mundo e ficou super à vontade com você desde a primeira vez.\n\nAmei demais! Obrigada por esse trabalho maravilhoso.",
     }] as Testimonial[],
